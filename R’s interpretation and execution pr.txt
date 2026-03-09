@@ -1,0 +1,767 @@
+R’s interpretation and execution process
+
+
+| Step | Stage      | What Happens                                              |
+| ---- | ---------- | --------------------------------------------------------- |
+| 1    | Parsing    | R reads and checks syntax.                                |
+| 2    | Evaluation | R looks up names, runs functions, computes results.       |
+| 3    | Output     | R displays or saves the result (in memory, or to a file). |
+
+
+sprintf() is great for formatting strings with placeholders (%s for string, %d for integer, etc.).
+
+name <- "R learner"
+print(sprintf("Hello, %s!", name))
+
+paste() and paste0() in R:-
+-These are functions used to combine (concatenate) strings.
+-Adds a space between elements by default.
+
+paste("Hello", "Sarang")
+# Output: "Hello Sarang"
+
+sprintf() in R
+This is a string formatting function, similar to what you see in languages like C or Python.
+
+name <- "Sarang"
+sprintf("Hello, %s!", name)
+# Output: "Hello, Sarang!"
+
+
+
+
+1️⃣ paste() — Combines Strings with Spaces
+
+Adds spaces automatically between text segments.
+
+You can also change the separator using the sep argument.
+
+paste("Hello", "Sarang")
+paste("The year is", 2025)
+paste("A", "B", "C", sep = "-")
+
+"Hello Sarang"
+"The year is 2025"
+"A-B-C"
+
+| Data Type | Example           | Description            |
+| --------- | ----------------- | ---------------------- |
+| Numeric   | `x <- 10.5`       | Real numbers (default) |
+| Integer   | `x <- 10L`        | Whole numbers          |
+| Character | `x <- "Hello"`    | Text strings           |
+| Logical   | `x <- TRUE`       | TRUE/FALSE values      |
+| Complex   | `x <- 3 + 2i`     | Complex numbers        |
+| Raw       | `charToRaw("Hi")` | Raw bytes              |
+
+
+📦 Data Structures Built on Data Types
+
+These are collections of data types:
+
+| Structure      | Description                                       | Example                           |
+| -------------- | ------------------------------------------------- | --------------------------------- |
+| **Vector**     | Sequence of same data type                        | `c(1,2,3)`                        |
+| **List**       | Sequence of mixed data types                      | `list(1, "a", TRUE)`              |
+| **Matrix**     | 2D array (same data type)                         | `matrix(1:6, nrow=2)`             |
+| **Data Frame** | Table-like structure (mixed data types by column) | `data.frame(name="John", age=25)` |
+| **Factor**     | Categorical data type                             | `factor(c("Male", "Female"))`     |
+
+
+🎯 Chapter: All About Strings in R
+🧠 What Is a String?
+
+A string is a sequence of characters — letters, numbers, symbols, or spaces — enclosed in quotes.
+
+In R, strings belong to the character data type.
+
+str1 <- "Hello World"
+str2 <- 'R Programming'
+class(str1)   # "character"
+
+
+✅ You can use either single (' ') or double (" ") quotes.
+
+🧱 1. Creating Strings
+➤ Single-line string
+x <- "Welcome to R"
+
+➤ Multi-line string
+
+Use paste() or cat() for printing multiple lines.
+
+cat("This is line 1\nThis is line 2")
+
+🧩 2. Combining Strings
+➤ Using paste() or paste0()
+
+paste() joins strings with a space (default separator).
+
+paste0() joins strings without any space.
+
+a <- "Data"
+b <- "Science"
+
+paste(a, b)        # "Data Science"
+paste0(a, b)       # "DataScience"
+
+# Add custom separator
+paste(a, b, sep = "-")   # "Data-Science"
+
+🪄 3. String Length
+
+Use nchar() to count the number of characters in a string.
+
+str <- "Hello R"
+nchar(str)   # 7
+
+✂️ 4. Extracting & Substring Operations
+➤ Extract part of a string
+
+Use substr() or substring().
+
+text <- "Programming"
+
+substr(text, 1, 4)     # "Prog"
+substring(text, 5, 8)  # "ramm"
+
+🔁 5. Changing Case
+
+Use these handy functions:
+
+x <- "r language"
+
+toupper(x)   # "R LANGUAGE"
+tolower(x)   # "r language"
+
+🔤 6. Splitting Strings
+
+Break a string into parts using strsplit().
+
+sentence <- "R is fun to learn"
+strsplit(sentence, " ")   # Split by space
+# Output: list("R", "is", "fun", "to", "learn")
+
+🪶 7. Replace Text in a String
+
+Use sub() (first match) or gsub() (all matches).
+
+text <- "I love Python. Python is great."
+sub("Python", "R", text)    # Replaces first "Python"
+gsub("Python", "R", text)   # Replaces all "Python"
+
+🧠 8. Searching in Strings
+➤ grep() finds patterns in strings.
+words <- c("apple", "banana", "grape", "apricot")
+grep("ap", words)        # Returns positions (1, 4)
+grep("ap", words, value = TRUE)  # Returns matching values
+
+🔍 9. Pattern Matching (Regular Expressions)
+
+Use regular expressions (regex) with functions like grepl(), sub(), gsub(), grep().
+
+text <- c("cat", "car", "dog")
+
+grepl("^c", text)   # Starts with 'c' → TRUE TRUE FALSE
+grep("g$", text)    # Ends with 'g' → "dog"
+
+📏 10. String Formatting
+➤ sprintf() formats strings like in C or Python.
+name <- "Alice"
+age <- 25
+sprintf("My name is %s and I am %d years old.", name, age)
+# "My name is Alice and I am 25 years old."
+
+🧩 11. Escape Characters
+
+Use backslash (\) for special characters inside strings.
+
+| Escape | Meaning      | Example              |
+| ------ | ------------ | -------------------- |
+| `\n`   | New line     | `"Hello\nWorld"`     |
+| `\t`   | Tab space    | `"A\tB"`             |
+| `\\`   | Backslash    | `"C:\\Users\\"`      |
+| `\"`   | Double quote | `"He said, \"Hi!\""` |
+
+📦 12. Useful String Functions Summary
+
+| Function                 | Description                    | Example                           |
+| ------------------------ | ------------------------------ | --------------------------------- |
+| `nchar(x)`               | Counts characters              | `nchar("R")` → 1                  |
+| `toupper(x)`             | Converts to uppercase          | `"hello"` → `"HELLO"`             |
+| `tolower(x)`             | Converts to lowercase          | `"HELLO"` → `"hello"`             |
+| `substr(x, start, stop)` | Extract substring              | `substr("Data",1,2)` → `"Da"`     |
+| `paste()`                | Combine strings with separator | `paste("R","Language",sep="-")`   |
+| `strsplit(x, split)`     | Split a string                 | `strsplit("A B C"," ")`           |
+| `sub()`                  | Replace first match            | `sub("A","B","AABC")`             |
+| `gsub()`                 | Replace all matches            | `gsub("A","B","AABC")`            |
+| `grep()`                 | Search pattern                 | `grep("ap", c("apple","banana"))` |
+| `sprintf()`              | Format string                  | `sprintf("Age %d", 25)`           |
+
+
+🎉 Example: All in One
+# Example Program: String Operations in R
+
+text <- "R Programming Language"
+
+cat("Original:", text, "\n")
+cat("Uppercase:", toupper(text), "\n")
+cat("Lowercase:", tolower(text), "\n")
+cat("Substring (1–11):", substr(text, 1, 11), "\n")
+cat("Length:", nchar(text), "\n")
+
+# Replace word
+new_text <- sub("Programming", "Statistical", text)
+cat("Replaced:", new_text, "\n")
+
+# Split
+cat("Split words:\n")
+print(strsplit(text, " "))
+
+# Combine
+a <- "Data"
+b <- "Science"
+cat("Combined:", paste(a, b, sep = "-"), "\n")
+
+🔍 Difference Between substr() and substring() in R
+
+Both are used to extract or replace parts of a string.
+🧩 1️⃣ Basic Syntax
+| Function                    | Syntax                                                                        | Purpose                   |
+| --------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
+| `substr(x, start, stop)`    | Extract or replace part of a string between fixed start and stop positions    | Simple and position-based |
+| `substring(x, first, last)` | Extract or replace part(s) of a string — can handle **vectors of start/stop** | More flexible             |
+
+🧠 2️⃣ Example: Simple Extraction
+text <- "Programming"
+
+➤ Using substr()
+substr(text, 1, 4)   # "Prog"
+
+➤ Using substring()
+substring(text, 1, 4)  # "Prog"
+
+
+✅ Result is the same when you use single values.
+So for simple cases, both work alike.
+
+🧮 3️⃣ Key Difference — Handling of Vectors
+
+This is where they differ 👇
+
+➤ substr() only uses the first start and stop values.
+substr("abcdef", 1:3, 4:6)
+# Output: "abcd"  (only first start=1 and stop=4 are used)
+
+➤ substring() applies each pair of start and stop values element-wise.
+substring("abcdef", 1:3, 4:6)
+# Output: "abcd" "bcde" "cdef"
+
+
+✅ So substring() is vectorized over start and stop.
+
+🔁 4️⃣ Replacement Behavior
+
+You can also use both to replace part of a string.
+
+➤ Example
+x <- "Hello World"
+
+substr(x, 7, 11) <- "R"
+x   # "Hello R"
+
+y <- "Welcome"
+substring(y, 4, 7) <- "R"
+y   # "WelR"
+
+
+✅ Both can replace substrings, but substring() can replace multiple parts at once when using vectors.
+
+🧾 5️⃣ Summary Table
+
+| Feature                     | `substr()`                        | `substring()`                        |
+| --------------------------- | --------------------------------- | ------------------------------------ |
+| Basic usage                 | Extract or replace part of string | Extract or replace part(s) of string |
+| Handles multiple start/stop | ❌ No (uses only first values)     | ✅ Yes (vectorized)                   |
+| Typical use                 | Simple substring extraction       | More flexible or multiple substrings |
+| Replace parts               | ✅ Yes                             | ✅ Yes (multiple at once)             |
+
+
+🧾 Quick Comparison Chart
+
+| Feature               | `substr()`                    | `substring()`              |
+| --------------------- | ----------------------------- | -------------------------- |
+| Extracts text from    | Fixed start & stop            | Start & stop (can vary)    |
+| Accepts vector inputs | ❌ No (only first values used) | ✅ Yes (works element-wise) |
+| Replace substring     | ✅ Yes                         | ✅ Yes (multiple)           |
+| Example output        | `"abcd"`                      | `"abcd" "bcde" "cdef"`     |
+
+
+
+⚡ 3️⃣ The Key Difference: Vectorization
+
+If you give multiple start and stop values, they behave differently 👇
+
+Example:
+substr(text, 1:3, 4:6)
+
+Behavior:
+
+substr() uses only the first pair → start=1, stop=4
+✅ Output: "abcd"
+
+Visual:
+
+[a b c d] e f
+ ↑       ↑
+ 1       4
+
+Example:
+substring(text, 1:3, 4:6)
+
+Behavior:
+
+substring() uses each pair element-wise:
+
+start=1, stop=4 → "abcd"
+
+start=2, stop=5 → "bcde"
+
+start=3, stop=6 → "cdef"
+
+✅ Output:
+"abcd" "bcde" "cdef"
+
+Visual:
+
+1: [a b c d]
+2:   [b c d e]
+3:     [c d e f]
+
+
+🧠 Difference Between print() and cat() in R
+
+🧩 1️⃣ Basic Purpose
+
+| Function  | Purpose                                                                            |
+| --------- | ---------------------------------------------------------------------------------- |
+| `print()` | Displays R objects in their **structured form** (including quotes, brackets, etc.) |
+| `cat()`   | Concatenates and prints text in a **clean, human-readable form**                   |
+
+🧮 2️⃣ Basic Example
+x <- "Hello R"
+
+print(x)   # prints with quotes
+cat(x)     # prints without quotes
+
+
+🖥️ Output:
+
+print(x) → "Hello R"
+cat(x)   → Hello R
+
+
+✅ So, print() shows the internal representation of an object (with quotes),
+while cat() prints the plain text output.
+
+🧠 3️⃣ Formatting Differences
+➤ print():
+
+Automatically adds a newline after printing.
+
+Can display any R object (vectors, data frames, lists, etc.).
+
+print("Hello")
+print("World")
+
+
+🖥️ Output:
+
+[1] "Hello"
+[1] "World"
+
+➤ cat():
+
+Does not add quotes or [1].
+
+Does not automatically add a newline — you must use \n.
+
+Mainly for formatted text output.
+
+cat("Hello")
+cat("World\n")
+
+
+🖥️ Output:
+
+HelloWorld
+
+
+(both printed together — no space or newline unless added manually)
+
+🔤 4️⃣ Using Special Characters (\n, \t, etc.)
+
+Only cat() handles escape characters properly.
+
+cat("Hello\nWorld\tR\n")
+
+
+🖥️ Output:
+
+Hello
+World	R
+
+
+✅ print() will just show them literally:
+
+print("Hello\nWorld\tR")
+# Output: [1] "Hello\nWorld\tR"
+
+🧩 5️⃣ Handling Multiple Values
+➤ With print()
+
+It prints one object at a time:
+
+x <- 10
+y <- 20
+print(x, y)   # ❌ Error: unused argument (y)
+
+➤ With cat()
+
+It can combine and print multiple values easily:
+
+x <- 10
+y <- 20
+cat("x =", x, "and y =", y, "\n")
+
+
+🖥️ Output:
+
+x = 10 and y = 20
+
+🧮 6️⃣ Printing Complex Objects
+
+print() works with data frames, lists, matrices, etc.
+
+cat() cannot print complex objects directly — it’s for text/numeric concatenation.
+
+df <- data.frame(Name = "Alice", Age = 25)
+print(df)   # Works fine
+cat(df)     # ❌ Error: argument 1 (type 'list') cannot be handled by 'cat'
+
+🧾 7️⃣ Summary Table
+
+| Feature                                             | `print()`            | `cat()`                       |
+| --------------------------------------------------- | -------------------- | ----------------------------- |
+| Shows quotes                                        | ✅ Yes                | ❌ No                          |
+| Adds newline automatically                          | ✅ Yes                | ❌ No (use `\n`)               |
+| Handles escape sequences (`\n`, `\t`)               | ❌ No                 | ✅ Yes                         |
+| Works with complex objects (data frame, list, etc.) | ✅ Yes                | ❌ No                          |
+| Combines multiple items                             | ❌ No                 | ✅ Yes                         |
+| Output format                                       | Structured (R-style) | Clean, formatted (user-style) |
+
+⚡ 8️⃣ Example Comparison
+name <- "John"
+age <- 25
+
+# Using print()
+print(paste("My name is", name, "and I am", age, "years old."))
+# Output: [1] "My name is John and I am 25 years old."
+
+# Using cat()
+cat("My name is", name, "and I am", age, "years old.\n")
+# Output: My name is John and I am 25 years old.
+
+
+
+
+
+
+
+
+
+
+
+
+
+🎯 1️⃣ Example: Showing Student Info
+name <- "Alice"
+marks <- 85
+
+# Using print()
+print(paste("Student name:", name, "Marks:", marks))
+
+# Using cat()
+cat("Student name:", name, "Marks:", marks, "\n")
+
+🖥️ Output Comparison
+# print()
+[1] "Student name: Alice Marks: 85"
+
+# cat()
+Student name: Alice Marks: 85
+
+
+✅ print() shows quotes and [1] → R’s internal representation
+✅ cat() shows clean, human-readable text → good for user output
+
+🎯 2️⃣ Example: Writing a Report (User Output)
+
+Let’s say you are generating a report for users.
+
+name <- "John"
+subject <- "Math"
+score <- 92
+
+cat("Report Card\n")
+cat("Name:", name, "\n")
+cat("Subject:", subject, "\n")
+cat("Score:", score, "\n")
+
+
+🖥️ Output:
+
+Report Card
+Name: John
+Subject: Math
+Score: 92
+
+
+✅ cat() is perfect for reports, summaries, and readable output.
+It respects \n (new lines), \t (tabs), and prints nicely.
+
+If you used print() instead, it would look messy:
+
+print(paste("Name:", name))
+print(paste("Subject:", subject))
+print(paste("Score:", score))
+
+
+🖥️ Output:
+
+[1] "Name: John"
+[1] "Subject: Math"
+[1] "Score: 92"
+
+🎯 3️⃣ Example: Debugging or Checking Data (Programmer Use)
+
+When you want to see the structure of a variable or object → use print().
+
+students <- data.frame(Name = c("John", "Mary"), Marks = c(90, 85))
+print(students)
+
+
+🖥️ Output:
+
+  Name Marks
+1  John    90
+2  Mary    85
+
+
+If you try:
+
+cat(students)
+
+
+🖥️ Output:
+
+Error in cat(students) : argument 1 (type 'list') cannot be handled by 'cat'
+
+
+❌ cat() can’t print data frames, lists, or tables — only text or numbers.
+
+🎯 4️⃣ Example: Combining Text and Numbers
+price <- 120
+quantity <- 5
+total <- price * quantity
+
+# print() version (for checking logic)
+print(paste("Price =", price, "Quantity =", quantity, "Total =", total))
+
+# cat() version (for final report)
+cat("Total bill:\n")
+cat("Price =", price, "\nQuantity =", quantity, "\nTotal =", total, "\n")
+
+
+🖥️ Output:
+
+# print()
+[1] "Price = 120 Quantity = 5 Total = 600"
+
+# cat()
+Total bill:
+Price = 120
+Quantity = 5
+Total = 600
+
+
+✅ print() → good for checking program data
+✅ cat() → perfect for showing clean report output
+
+
+| Option           | Function                             | Description                                        |
+| ---------------- | ------------------------------------ | -------------------------------------------------- |
+| **A. `rm()`**    | Removes variables from memory        | Example: `rm(x)` deletes `x`                       |
+| **B. `paste()`** | Combines strings/text                | Example: `paste("R", "Language")` → `"R Language"` |
+| **C. `ls()`**    | ✅ Lists variables in the environment | Example: `ls()` → `"x" "y" "z"`                    |
+| **D. `lr()`**    | ❌ No such function in base R         | Will give an error if used                         |
+
+
+
+
+🎯 Your Challenge:
+
+Create your own vector-based project!
+Example ideas:
+
+Track your weekly expenses 💰
+
+Analyze your study hours per subject 📚
+
+Monitor your daily screen time 📱
+
+Then use:
+
+mean() for average
+
+which.max() for peak
+
+Logical conditions (>, <) for comparisons
+
+# Create a text file for the R Vectors Practice Worksheet
+
+file_content = """
+R VECTORS PRACTICE WORKSHEET
+
+---
+
+### 1️⃣ Customer Spending Analysis
+You run a small store and have the spending (in $) of 6 customers this week:
+spending <- c(120, 250, 90, 300, 180, 220)
+customers <- c("Aman", "Riya", "John", "Sara", "Meena", "Arjun")
+
+Questions:
+1. Find the average spending.
+2. Find the maximum and minimum spending.
+3. Which customer spent the most?
+4. Which customers spent more than $200?
+5. Increase all spending by 10%.
+
+---
+
+### 2️⃣ Student Exam Scores
+students <- c("Ali", "Neha", "Rohit", "Simran", "David")
+marks <- c(75, 88, 64, 90, 82)
+
+Questions:
+1. Find the average marks.
+2. Who got the highest marks?
+3. Who scored below 70?
+4. Add 5 bonus marks for each student.
+5. How many students scored above 80?
+
+---
+
+### 3️⃣ Weekly Step Tracker
+days <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+steps <- c(6500, 8000, 7200, 10000, 9000, 12000, 11000)
+
+Questions:
+1. Find the average daily steps.
+2. Which day had the highest steps?
+3. Which days had less than 8000 steps?
+4. By what percentage were Saturday’s steps higher than Monday’s?
+5. Plot a simple bar graph of daily steps.
+
+---
+
+### 4️⃣ Monthly Sales
+months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun")
+sales <- c(21000, 18000, 25000, 23000, 27000, 30000)
+
+Questions:
+1. Find the average sales.
+2. Which month had the lowest sales?
+3. Calculate total half-year sales.
+4. List months with sales above 25,000.
+5. Assume next month sales increase by 15% — what will be the projected July sales?
+
+---
+
+### 5️⃣ Nutrition Tracker Example
+days <- c("Mon", "Tue", "Wed", "Thu", "Fri")
+calories <- c(1800, 2000, 1950, 1700, 2200)
+
+Questions:
+1. Find the average calorie intake.
+2. Which day did you eat the most calories?
+3. Which days were below 1900 calories?
+4. Calculate total weekly calories.
+5. Reduce every day’s calories by 5% (simulate a diet).
+
+---
+
+Instructions:
+- Use mean(), sum(), which.max(), which.min(), logical comparisons, and vector operations.
+- Use barplot() to visualize data when required.
+- Fill in your answers below each section.
+
+---
+End of Worksheet
+"""
+
+file_path = '/mnt/data/R_vectors_practice_worksheet.txt'
+with open(file_path, 'w') as f:
+    f.write(file_content)
+
+file_path
+
+
+
+
+🔹 What is as in R?
+
+In R,
+
+as is part of R’s type conversion system — it stands for “as something”, meaning convert this object to another type.
+
+So as itself isn’t a function — it’s a prefix used in a family of functions like:
+
+as.numeric() → convert to numeric
+
+as.character() → convert to character (text)
+
+as.Date() → convert to Date
+
+as.logical() → convert to TRUE/FALSE
+
+as.data.frame() → convert to data frame
+
+
+🎤 Sample Interview Answer:
+
+“ASTDY and AENDY are derived analysis variables used to calculate the number of days from the subject’s reference start date — usually the first dose date.
+
+For example, ASTDY = (AESTDTC − TRTSDT) + 1 and AENDY = (AEENDTC − TRTSDT) + 1.
+
+TRTEMFL stands for Treatment Emergent Flag, which identifies if an adverse event occurred on or after the first dose.
+
+I typically derive it in R using a condition like:
+if_else(AESTDTC >= TRTSDT, "Y", "").
+
+These variables are critical for analysis datasets like ADAE and help distinguish pre-treatment and post-treatment events.”
+
+| Variable      | Common Pitfall                        | How to Handle                            |
+| ------------- | ------------------------------------- | ---------------------------------------- |
+| ASTDY / AENDY | Missing reference date (TRTSDT)       | Use ADSL dataset join before derivation  |
+| AENDY         | Missing AEENDTC                       | Use last known visit date or leave blank |
+| TRTEMFL       | Partial dates (e.g., only month/year) | Use date imputation rules per study SAP  |
+
+
+💊 Key Derived Variables in ADaM / SDTM
+
+	| Variable    | Domain                                 | Full Name                   | Meaning / Purpose                                                                                                        |
+| ----------- | -------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **ASTDY**   | ADaM (and sometimes SDTM intermediate) | **Analysis Start Day**      | Number of days from the subject’s reference start date (e.g., first dose) to the start of the event or observation.      |
+| **AENDY**   | ADaM                                   | **Analysis End Day**        | Number of days from the reference start date to the end of the event or observation.                                     |
+| **TRTEMFL** | ADaM (usually ADSL or ADAE)            | **Treatment Emergent Flag** | Indicates whether an event occurred *after* the treatment started — “Y” = Yes, event happened during or after treatment. |
+
