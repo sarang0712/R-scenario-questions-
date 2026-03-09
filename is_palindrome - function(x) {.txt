@@ -1,0 +1,458 @@
+is_palindrome <- function(x) {
+  x <- as.character(x)                 # Convert to character
+  reversed <- paste(rev(strsplit(x, "")[[1]]), collapse = "")
+  return(x == reversed)                # Compare original and reversed
+}
+
+# Examples
+is_palindrome("madam")
+is_palindrome(121)
+is_palindrome("hello")
+
+
+Code Explaination :-
+
+Great 👍 I’ll explain your function line by line in simple terms.
+
+Here is your code again:
+
+is_palindrome <- function(x) {
+  x <- as.character(x)                 
+  reversed <- paste(rev(strsplit(x, "")[[1]]), collapse = "")
+  return(x == reversed)                
+}
+🔹 Line 1
+is_palindrome <- function(x) {
+
+You are creating a function named is_palindrome.
+
+x is the input (it can be a word or a number).
+
+🔹 Line 2
+x <- as.character(x)
+
+Converts the input into character (string) format.
+
+Why?
+Because we can only reverse characters, not numbers directly.
+
+Example:
+
+If x = 121 → becomes "121"
+
+🔹 Line 3
+reversed <- paste(rev(strsplit(x, "")[[1]]), collapse = "")
+
+This is the most important line. Let’s break it step by step.
+
+✅ Step 1: strsplit(x, "")
+
+Splits the string into individual characters.
+
+"" means split at every character.
+
+Example:
+
+strsplit("madam", "")
+
+Output:
+
+[[1]]
+[1] "m" "a" "d" "a" "m"
+
+It returns a list, not a simple vector.
+
+✅ Step 2: [[1]]
+
+Because strsplit() returns a list, we extract the first element:
+
+strsplit("madam", "")[[1]]
+
+Now we get:
+
+"m" "a" "d" "a" "m"
+
+This is now a vector of characters.
+
+✅ Step 3: rev()
+rev(strsplit(x, "")[[1]])
+
+rev() means reverse.
+
+It reverses the order of elements.
+
+Example:
+
+"m" "a" "d" "a" "m"
+
+Reversed:
+
+"m" "a" "d" "a" "m"
+
+If "hello":
+
+"h" "e" "l" "l" "o"
+
+Reversed:
+
+"o" "l" "l" "e" "h"
+✅ Step 4: paste(..., collapse = "")
+
+Now we have reversed characters like:
+
+"o" "l" "l" "e" "h"
+
+We need to join them back into a single word.
+
+That’s where paste() is used.
+
+🔹 What does paste() do?
+
+paste() joins values together.
+
+Example:
+
+paste("R", "is", "fun")
+
+Output:
+
+"R is fun"
+🔹 What is collapse = "" ?
+
+collapse tells R how to join multiple elements into one string.
+
+Example:
+
+paste(c("o","l","l","e","h"), collapse = "")
+
+Output:
+
+"olleh"
+
+collapse = "" → join with no space
+
+collapse = " " → join with space
+
+collapse = "-" → join with dash
+
+Example:
+
+paste(c("o","l","l","e","h"), collapse = "-")
+
+Output:
+
+"o-l-l-e-h"
+
+So in your function:
+
+paste(rev(strsplit(x, "")[[1]]), collapse = "")
+
+Means:
+
+Split into letters
+
+Reverse letters
+
+Join them back with no spaces
+
+🔹 Line 4
+return(x == reversed)
+
+Compares original string with reversed string.
+
+If both are same → TRUE
+
+If not → FALSE
+
+Example:
+
+"madam" == "madam"  → TRUE
+"hello" == "olleh"  → FALSE
+🔥 Full Logic in Simple Words
+
+Convert input to string.
+
+Break it into letters.
+
+Reverse the letters.
+
+Join them back into a word.
+
+Check if original word equals reversed word.
+
+[[1]]) what is denote and how we used it ??
+
+You’re asking about this part:
+
+strsplit(x, "")[[1]]
+
+Let’s understand what [[1]] means.
+
+🔹 What does [[1]] denote in R?
+
+In R:
+
+[] → extracts elements but keeps the list structure
+
+[[ ]] → extracts the actual value inside the list
+
+So:
+
+👉 [[1]] means
+“Give me the first element inside this list.”
+
+🔹 Why do we need [[1]] here?
+
+Because strsplit() returns a list, not a simple vector.
+
+Example:
+
+strsplit("madam", "")
+
+Output:
+
+[[1]]
+[1] "m" "a" "d" "a" "m"
+
+Notice something important:
+
+The result is a list
+
+Inside that list, the first element contains the vector of letters
+
+So the structure is:
+
+List
+ └── Element 1 → "m" "a" "d" "a" "m"
+🔹 Difference Between [1] and [[1]]
+Using [1]
+strsplit("madam", "")[1]
+
+Output:
+
+[[1]]
+[1] "m" "a" "d" "a" "m"
+
+👉 This is still a list
+
+Using [[1]]
+strsplit("madam", "")[[1]]
+
+Output:
+
+[1] "m" "a" "d" "a" "m"
+
+👉 This is now a character vector, not a list.
+
+🔹 Why is this important?
+
+The rev() function works on vectors, not lists.
+
+So this will work:
+
+rev(strsplit("madam", "")[[1]])
+
+But this may cause problems:
+
+rev(strsplit("madam", "")[1])   # because it's still a list
+🔹 Simple Real-Life Analogy
+
+Think of a list like a lunchbox 🍱
+
+The lunchbox (list)
+
+Inside it → food items (vector)
+
+[1] → gives you the lunchbox
+[[1]] → gives you the actual food inside
+
+🔹 Summary
+Symbol	Meaning
+[1]	Get first element (still keeps list structure)
+[[1]]	Get the actual value inside the first element
+$	Used to extract named elements from lists
+
+So in your palindrome function:
+
+strsplit(x, "")[[1]]
+
+Means:
+
+Split word into characters (stored inside a list)
+
+Extract the first element of that list
+
+Now we have a vector of letters
+
+Then reverse it
+
+****************************************************************************************************************************************************
+Code 2:-is_palindrome <- function(x) {
+  x <- tolower(gsub("[^a-z0-9]", "", as.character(x)))
+  reversed <- paste(rev(strsplit(x, "")[[1]]), collapse = "")
+  return(x == reversed)
+}
+
+is_palindrome("A man, a plan, a canal: Panama") 
+Can you please explain me this as well with proper in lemon word 
+
+
+🌟 What This Version Does
+
+This version is smarter because it:
+
+Ignores capital letters
+
+Ignores spaces
+
+Ignores punctuation (, : etc.)
+
+So the sentence:
+code :-
+
+"A man, a plan, a canal: Panama"
+
+Becomes:
+
+"amanaplanacanalpanama"
+
+Then it checks if that word is the same forward and backward.
+
+🟢 Line-by-Line Explanation
+🔹 1️⃣ as.character(x)
+
+If you give a number, it changes it into text.
+
+Example:
+
+121 → "121"
+
+Why?
+Because we can only split and reverse text, not numbers directly.
+
+🔹 2️⃣ gsub("[^a-z0-9]", "", x)
+
+This removes unwanted characters.
+
+Let’s break this:
+
+✅ What is gsub()?
+
+gsub() means:
+
+“Find something and replace it.”
+
+Format:
+
+gsub(pattern, replacement, text)
+✅ What does [^a-z0-9] mean?
+
+This is called a pattern.
+
+a-z → small letters
+
+0-9 → numbers
+
+^ inside [] means → NOT
+
+So:
+
+[^a-z0-9]
+
+Means:
+
+Remove everything that is NOT a small letter or number.
+
+Example
+
+Before:
+
+"A man, a plan!"
+
+After gsub():
+
+"Amanaplan"
+
+Spaces, commas, punctuation → removed.
+
+🔹 3️⃣ tolower()
+
+This makes everything lowercase.
+
+Example:
+
+"Amanaplan" → "amanaplan"
+
+Why?
+Because:
+
+"A" is NOT equal to "a"
+
+So we make everything lowercase to compare properly.
+
+🔹 After This Line
+
+This whole line:
+
+x <- tolower(gsub("[^a-z0-9]", "", as.character(x)))
+
+Turns:
+
+"A man, a plan, a canal: Panama"
+
+Into:
+
+"amanaplanacanalpanama"
+🟢 Next Line
+reversed <- paste(rev(strsplit(x, "")[[1]]), collapse = "")
+
+This part:
+
+Splits into letters
+
+Reverses letters
+
+Joins them back
+
+Example:
+
+"abc"
+
+Split → "a" "b" "c"
+Reverse → "c" "b" "a"
+Join → "cba"
+
+🟢 Final Line
+return(x == reversed)
+
+Compares:
+
+"amanaplanacanalpanama"
+==
+"amanaplanacanalpanama"
+
+If same → TRUE
+If different → FALSE
+
+🎯 Final Output
+is_palindrome("A man, a plan, a canal: Panama")
+
+✅ Returns:
+
+TRUE
+
+Because after cleaning, it becomes a perfect palindrome.
+
+🍋 Super Simple Summary
+
+This function:
+
+Converts input to text
+
+Removes spaces and punctuation
+
+Makes everything lowercase
+
+Reverses the word
+
+Checks if both are same

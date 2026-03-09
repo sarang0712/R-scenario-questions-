@@ -1,0 +1,148 @@
+Perfect 😎🔥
+Here are Medium → Hard level R logic + DSA-style problems (interview oriented + data thinking).
+
+You write the R code, and I’ll evaluate deeply.
+
+🟡 MEDIUM LEVEL
+1️⃣ Longest Substring Without Repeating Characters
+
+Write a function that returns the length of the longest substring without repeating characters.
+
+Example:
+
+Input: "abcabcbb"
+Output: 3   # "abc"
+
+Input: "bbbbb"
+Output: 1
+
+👉 Do not use ready-made packages that directly solve it.
+👉 Try optimizing (avoid O(n²) if possible).
+
+2️⃣ Move Zeros to End (Without Sorting)
+
+Given a numeric vector, move all zeros to the end while keeping order of non-zero elements.
+
+Example:
+
+Input: c(0,1,0,3,12)
+Output: c(1,3,12,0,0)
+
+👉 Maintain original order.
+👉 Try a vectorized approach if possible.
+
+3️⃣ Validate Balanced Parentheses
+
+Given a string containing ()[]{}, check if parentheses are balanced.
+
+Example:
+
+Input: "{[()]}"
+Output: TRUE
+
+Input: "{[(])}"
+Output: FALSE
+
+👉 This tests stack logic.
+
+4️⃣ Find All Duplicates in a Vector
+
+Return all elements that appear more than once.
+
+Example:
+
+Input: c(4,3,2,7,8,2,3,1)
+Output: c(2,3)
+
+👉 Output should contain unique duplicate values only.
+
+🔴 HARD LEVEL
+5️⃣ Group Anagrams
+
+Given a character vector, group words that are anagrams.
+
+Example:
+
+Input: c("eat","tea","tan","ate","nat","bat")
+
+Output:
+list(
+  c("eat","tea","ate"),
+  c("tan","nat"),
+  c("bat")
+)
+
+👉 Order inside groups doesn’t matter.
+👉 Avoid brute-force comparison.
+
+6️⃣ LRU Cache Simulation (Advanced Logic)
+
+Create a function that simulates an LRU cache.
+
+Inputs:
+
+Capacity (e.g., 2)
+
+Sequence of page requests
+
+Example:
+
+Capacity = 2
+Requests = c(1,2,1,3,4,2)
+
+Return total cache misses.
+
+👉 This tests advanced logic + state tracking.
+
+7️⃣ Detect Cycle in Directed Graph (Using Adjacency List)
+
+Input:
+
+Number of nodes
+
+Edge list
+
+Return TRUE if cycle exists.
+
+👉 Try implementing using DFS logic in R.
+
+8️⃣ Sliding Window Maximum
+
+Given vector and window size k, return maximum of each window.
+
+Example:
+
+Input: c(1,3,-1,-3,5,3,6,7), k=3
+Output: c(3,3,5,5,6,7)
+
+👉 Try better than brute force O(n*k).
+
+💣 VERY HARD (If you want real challenge)
+9️⃣ Implement Your Own table() Function
+
+Without using:
+
+table()
+
+aggregate()
+
+dplyr count
+
+Create frequency count of elements in a vector.
+
+🔟 Write Your Own merge() (Inner Join)
+
+Given two data frames:
+
+Join them manually without using merge() or dplyr.
+
+🔥 My suggestion:
+Start with:
+
+Balanced Parentheses
+
+Group Anagrams
+
+Sliding Window Maximum
+
+These are real interview-level.

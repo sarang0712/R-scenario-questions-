@@ -1,0 +1,352 @@
+Code :-
+X <- 30
+
+outer <- function() {
+  X <- 2
+  
+  middle <- function() {
+    X <- 200
+    
+    inner <- function() {
+      
+      middle_inner <- function() {
+        X <- 70
+        print(paste("middle_inner X =", X))
+      }
+      
+      middle_inner()
+      print(paste("inner sees X =", X))
+    }
+    
+    inner()
+    print(paste("middle sees X =", X))
+  }
+  
+  middle()
+  print(paste("outer sees X =", X))
+}
+
+outer()
+
+print(paste("global X =", X))
+
+Explanation :-
+
+
+🏠 Think of Functions as Nested Rooms
+
+Global → outer → middle → inner → middle_inner
+
+Each room has its own X 📦
+
+🧩 X Values in Each Room
+Room (Scope)	X value
+Global	30
+outer	2
+middle	200
+inner	(no X — uses parent)
+middle_inner	70
+🗺️ DIAGRAM — Variable Scopes
+GLOBAL ROOM
+X = 30
+   │
+   ▼
+OUTER ROOM
+X = 2
+   │
+   ▼
+MIDDLE ROOM
+X = 200
+   │
+   ▼
+INNER ROOM
+(no X here)
+   │
+   ▼
+MIDDLE_INNER ROOM
+X = 70
+🚶‍♂️ How R Searches for X
+
+Inside a function, R looks:
+
+👉 Current room
+👉 Parent room
+👉 Parent of parent
+👉 Global
+
+🧠 DIAGRAM — Execution Flow (Call Stack)
+
+When you run:
+
+outer()
+
+Execution goes DOWN 👇
+
+outer()
+  ↓
+middle()
+  ↓
+inner()
+  ↓
+middle_inner()
+
+Then returns UP 👆
+
+🍋 Step-by-Step Lemon Explanation
+🍋 Step 1 — Start outside
+Global X = 30
+
+Nothing printed yet.
+
+🍋 Step 2 — Enter outer()
+
+You walk into a new room 🚪
+
+outer X = 2
+
+Then outer calls middle()
+
+🍋 Step 3 — Enter middle()
+
+Another room 🚪
+
+middle X = 200
+
+Then middle calls inner()
+
+🍋 Step 4 — Enter inner()
+
+New room 🚪
+
+No X here ❌
+
+So inner will borrow from parent (middle).
+
+🍋 Step 5 — Enter middle_inner()
+
+Deepest room 🚪
+
+X = 70
+
+Prints:
+
+middle_inner X = 70
+
+Then exits that room ⬆️
+
+🍋 Step 6 — Back to inner()
+
+Now inner prints X.
+
+No X inside → look at parent (middle)
+
+X = 200
+
+Output:
+
+inner sees X = 200
+🍋 Step 7 — Back to middle()
+
+Middle prints its own X:
+
+middle sees X = 200
+🍋 Step 8 — Back to outer()
+
+Outer prints its own X:
+
+outer sees X = 2
+🍋 Step 9 — Global X remains unchanged
+global X = 30
+🎯 FINAL OUTPUT ORDER
+middle_inner X = 70
+inner sees X = 200
+middle sees X = 200
+outer sees X = 2
+🏆 BIG CONCEPT YOU JUST LEARNED
+⭐ R uses Lexical Scoping
+
+Variables belong to the environment where they are created.
+
+Child functions can SEE parent variables
+—but cannot change them (normally).
+
+🧃 Ultra-Simple Analogy
+
+Think of Russian dolls 🪆
+
+Big doll (global)
+  inside → outer
+    inside → middle
+      inside → inner
+        inside → middle_inner
+
+Each doll has its own X sticker 🏷️
+
+
+
+Code 2:-
+parent <- function() {
+  x <- 10
+  
+  child <- function() {
+    print(x)
+  }
+  
+  child()
+}
+
+parent()
+
+
+📊 Diagrammatic Flow (How R Sees It)
+
+Global Environment
+      │
+      ▼
+ ┌───────────────┐
+ │ parent()      │
+ │ x = 10        │
+ │               │
+ │  ┌─────────┐  │
+ │  │ child() │  │
+ │  │ print(x)│──┘
+ │  └─────────┘
+ └───────────────┘
+
+👉 Child looks UP to parent to find x
+
+🔍 Step-by-Step Lookup (Lexical Scoping)
+
+When child() runs:
+
+1️⃣ Does child have x? → ❌ No
+2️⃣ Look in parent → ✔ Found x = 10
+3️⃣ Use it
+
+🔍 Step-by-Step Lookup (Lexical Scoping)
+
+When child() runs:
+
+1️⃣ Does child have x? → ❌ No
+2️⃣ Look in parent → ✔ Found x = 10
+3️⃣ Use it
+
+🧪 Another Example (Multiple Levels)
+Code 3:-
+grandparent <- function() {
+  x <- 100
+  
+  parent <- function() {
+    
+    child <- function() {
+      print(x)
+    }
+    
+    child()
+  }
+  
+  parent()
+}
+
+grandparent()
+
+📊 Multi-Level Diagram
+
+Global Env
+   │
+   ▼
+┌──────────────────┐
+│ grandparent()    │
+│ x = 100          │
+│                  │
+│ ┌──────────────┐ │
+│ │ parent()     │ │
+│ │              │ │
+│ │ ┌──────────┐ │ │
+│ │ │ child()  │ │ │
+│ │ │ print(x) │─┘ │
+│ │ └──────────┘   │
+│ └──────────────┘ │
+└──────────────────┘
+
+👉 Child climbs up environments until it finds x
+
+⭐ Key Rule (Very Important)
+
+R searches variables in this order:
+Child → Parent → Grandparent → Global → Base
+
+⚠️ Reverse is NOT true
+
+Parent CANNOT see child variables.
+
+🎯 Interview-Ready Definition
+
+👉 “R uses lexical scoping — a function looks for variables in the environment where it was defined, not where it is called.”
+
+
+Let’s walk through your code step by step:
+
+f1 <- function () {
+  
+  x <<- 5
+  
+  f2 <- function() {
+    x <- 10
+    x + 1
+  }
+  f2()
+}
+f1()
+
+🔎 Why is x treated as 10 inside f2()?
+
+Because of R’s lexical scoping rules.
+
+Inside f2() you wrote:
+
+x <- 10
+
+This creates a new local variable x inside f2().
+
+When you then compute:
+
+x + 1
+
+R looks for x:
+
+First inside f2() → finds x <- 10
+
+So it uses 10
+
+Returns 11
+
+It never looks outside to the x <<- 5 because a local variable named x already exists.
+
+🔁 What does <<- actually do?
+
+This line:
+
+
+x <<- 5
+
+Assigns x = 5 in the parent/global environment (not inside f1).
+
+But inside f2(), you created a new local x, which hides the outer one.
+
+So this is happening:
+
+Global: x = 5   (created by <<-)
+
+Inside f2:
+    x = 10      (local variable)
+
+The local variable masks the outer one.
+
+🧠 Key Concept
+
+<- → creates/updates variable in current environment
+
+<<- → updates variable in parent/global environment
+
+But local variables always override outer variables if they have the same name.

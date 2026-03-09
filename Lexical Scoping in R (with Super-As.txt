@@ -1,0 +1,557 @@
+Lexical Scoping in R (with Super-Assignment <<-)
+
+🍋 Lemon Explanation — VERY IMPORTANT CONCEPT
+
+This demonstrates R lexical scoping.
+
+🧩 Inside outer_func
+X <- "Sarang"
+
+This creates a local variable.
+
+🧩 inner_func() prints X
+
+R looks for X in this order:
+
+1️⃣ Inside inner_func → not found
+2️⃣ Parent function (outer_func) → FOUND ("Sarang")
+3️⃣ Global environment → not needed
+
+👉 So it prints "Sarang"
+
+🧩 Global X remains unchanged
+
+Outside the function:
+
+X <- 100
+
+Functions do NOT change global variables unless told to.
+
+👉 So print(X) prints 100
+
+🔥 Interview-Important Concept
+⭐ Lexical Scoping Rule in R
+
+R searches variables:
+
+👉 Current function → Parent → Global → Base
+
+🎯 Real-Life Analogy
+
+Imagine rooms 🏠
+
+inner_func = small room
+
+outer_func = big room
+
+global = outside world
+
+If object not in small room → check big room → then outside
+
+⭐ If you want to MODIFY global X (advanced)
+
+Use super-assignment <<-
+
+outer_func <- function() {
+  X <<- "Sarang"
+}
+
+⚠️ Use carefully — not recommended in production.
+
+
+🍋 First: Big Idea (Very Simple)
+
+Think of functions like rooms in a house.
+
+outer_func() → 🏠 Big room (parent room)
+
+inner_func() → 🚪 Small room inside big room
+
+x → A toy placed in a room
+
+Normally:
+
+If a toy is in the big room → small room can see it.
+
+If small room changes toy with <<- → it changes the toy in the big room.
+
+🍋 Your Code – Line by Line
+1️⃣ Create outer function
+outer_func <- function() {
+
+You are building a big room.
+
+2️⃣ Create variable inside parent
+x <- "I am Enclosing"
+
+Inside big room:
+You put a toy named x.
+
+Value:
+
+"I am Enclosing"
+
+This is called enclosing environment.
+
+3️⃣ Print in parent
+cat("\nparent fun \n",x)
+
+Output:
+
+parent fun
+I am Enclosing
+4️⃣ Create inner function
+inner_func <- function() {
+
+Now you create a small room inside big room.
+
+Small room can see things from big room.
+
+5️⃣ Print x inside child
+cat("\nchild fun \n",x)
+
+Small room looks for x.
+
+Does small room have x?
+❌ No.
+
+So it looks in parent room.
+✅ Finds x = "I am Enclosing"
+
+Output:
+
+child fun
+I am Enclosing
+6️⃣ This is IMPORTANT
+x <<- "ganesh"
+
+<<- means:
+
+👉 "Go outside my room and change x there!"
+
+So now:
+Big room’s x becomes:
+
+"ganesh"
+7️⃣ Print again
+cat("\nchild fun after update x \n",x)
+
+Now x is:
+
+ganesh
+8️⃣ Local variable
+local_val <- "I am Local"
+
+This toy exists only inside small room.
+
+Big room cannot see it.
+
+9️⃣ Print x
+print(x)
+
+Prints:
+
+ganesh
+🔟 Print pi
+print(pi)
+
+pi is global (comes from R itself).
+
+So it prints:
+
+3.141593
+1️⃣1️⃣ Call inner function
+inner_func()
+
+Now everything inside small room runs.
+
+1️⃣2️⃣ Print x in parent again
+cat("\nparent Fun 1 x\n",x)
+
+Remember:
+Child changed x using <<-
+
+So now parent x is:
+
+ganesh
+1️⃣3️⃣ Outside everything
+print(x)
+
+This is global space (outside house).
+
+Is there x in global?
+
+❌ No.
+
+So R gives:
+
+Error: object 'x' not found
+🍋 Final Output Order
+
+When you run:
+
+outer_func()
+
+You will see something like:
+
+parent fun
+I am Enclosing
+
+child fun
+I am Enclosing
+
+child fun after update x
+ganesh
+
+[1] "ganesh"
+
+[1] 3.141593
+
+parent Fun 1 x
+ganesh
+
+And before that:
+
+Error: object 'x' not found
+
+(from print(x) outside)
+
+🍋 Super Simple Example
+
+Let’s take smaller example:
+
+x <- "global"
+
+test <- function() {
+  x <- "parent"
+  
+  inner <- function() {
+    x <<- "changed"
+  }
+  
+  inner()
+  print(x)
+}
+
+test()
+print(x)
+
+Result:
+
+[1] "changed"
+[1] "global"
+
+Why?
+
+Because <<- changed parent x, not global x.
+
+🍋 Rule of Thumb
+Operator	Meaning
+<-	Create/change variable in current room
+<<-	Go outside and change variable in parent room
+Normal read	Look in current room → then parent → then global
+🍋 Very Important Concept: Lexical Scoping
+
+R follows lexical scoping:
+
+Small room searches:
+
+Inside itself
+
+Then parent
+
+Then global
+
+Then base (like pi)
+
+🍋 Final Simple Takeaway
+
+Your program shows:
+
+✅ Inner function can see parent variables
+✅ <<- changes parent variable
+❌ Parent cannot see child’s local variables
+❌ Global cannot see parent’s variables
+
+
+
+🏠 Basic Setup
+outer_func <- function() {
+
+  x <- 10   # Toy in big room
+
+  inner_func <- function() {
+    print(x)
+  }
+
+  inner_func()
+}
+🎨 Visual Diagram
+1️⃣ Before calling inner_func()
+🏠 outer_func (Big Room)
+   └── 🧸 x = 10
+
+      🚪 inner_func (Small Room inside)
+         └── (no x here)
+2️⃣ When inner_func() runs
+
+It looks for x.
+
+Step 1: Look inside small room 🚪
+        ❌ No x found
+
+Step 2: Look in parent big room 🏠
+        ✅ Found x = 10
+
+So it prints:
+
+[1] 10
+🔁 Now let’s add <<-
+outer_func <- function() {
+
+  x <- 10
+
+  inner_func <- function() {
+    x <<- 20
+  }
+
+  inner_func()
+  print(x)
+}
+🎨 Diagram With <<-
+Before inner runs:
+🏠 outer_func
+   └── 🧸 x = 10
+
+      🚪 inner_func
+         └── (no x)
+When x <<- 20 happens:
+Step 1: Look in 🚪 small room
+        ❌ No x
+
+Step 2: Look in 🏠 big room
+        ✅ Found x
+
+Step 3: Change that x to 20
+
+Now memory looks like:
+
+🏠 outer_func
+   └── 🧸 x = 20   ✅ (CHANGED!)
+
+      🚪 inner_func
+
+So print(x) gives:
+
+[1] 20
+🧠 Very Important Difference
+If you use <- instead of <<-
+inner_func <- function() {
+  x <- 20
+}
+
+Then:
+
+🚪 inner_func
+   └── 🧸 x = 20  (NEW toy created here)
+
+🏠 outer_func
+   └── 🧸 x = 10  (unchanged!)
+
+The small room creates its own toy.
+The big room's toy stays the same.
+
+🔥 Final Mental Model
+
+Think of it like this:
+
+LOOKING for toy → walk outward (child → parent)
+
+CHANGING toy:
+  <-   → change inside current room only
+  <<-  → walk outward and change first one you find
+
+We now add:
+
+🌍 Global Room (outside the house)
+
+🏢 Multiple nested rooms
+
+🧱 Toy doesn’t exist anywhere
+
+All examples are in R (because of <<-).
+
+🌍 1) What if there is a Global Room?
+
+Think of it like this:
+
+🌍 Global Room
+   └── 🧸 x = 100
+
+   🏠 outer_func
+      └── (no x)
+
+         🚪 inner_func
+Code:
+x <- 100   # Global room
+
+outer_func <- function() {
+
+  inner_func <- function() {
+    print(x)
+  }
+
+  inner_func()
+}
+🔎 What happens?
+
+When inner_func() looks for x:
+
+🚪 inner_func → ❌ no x
+🏠 outer_func → ❌ no x
+🌍 Global room → ✅ found x = 100
+
+It prints:
+
+[1] 100
+🔁 Now with <<-
+x <- 100
+
+outer_func <- function() {
+
+  inner_func <- function() {
+    x <<- 999
+  }
+
+  inner_func()
+}
+
+outer_func()
+print(x)
+What happens?
+🚪 inner_func → no x
+🏠 outer_func → no x
+🌍 Global → found x
+→ change it to 999
+
+Now:
+
+🌍 x = 999   ✅ changed globally!
+
+⚠️ This is why <<- can be dangerous — it can modify global variables.
+
+🏢 2) Multiple Nested Rooms
+
+Now imagine 3 levels:
+
+🌍 Global
+   └── x = 1
+
+🏠 outer
+   └── x = 2
+
+   🚪 middle
+      └── x = 3
+
+      🧸 inner
+Code:
+x <- 1
+
+outer <- function() {
+  x <- 2
+
+  middle <- function() {
+    x <- 3
+
+    inner <- function() {
+      print(x)
+    }
+
+    inner()
+  }
+
+  middle()
+}
+What prints?
+
+When inner() looks for x:
+
+🧸 inner → ❌
+🚪 middle → ✅ x = 3
+
+So it prints:
+
+[1] 3
+
+It stops at the FIRST match going outward.
+
+🔁 Now use <<- inside inner:
+inner <- function() {
+  x <<- 50
+}
+
+What happens?
+
+🧸 inner → no x
+🚪 middle → found x = 3
+→ change that to 50
+
+After running:
+
+🌍 x = 1
+🏠 outer x = 2
+🚪 middle x = 50   ✅ changed
+
+It changes the nearest parent version, not the global one.
+
+🧱 3) What if toy doesn’t exist anywhere?
+
+Now imagine:
+
+🌍 Global → no x
+🏠 outer → no x
+🚪 inner → no x
+Code:
+outer <- function() {
+
+  inner <- function() {
+    x <<- 500
+  }
+
+  inner()
+}
+
+outer()
+What happens?
+
+R searches:
+
+🚪 inner → ❌
+🏠 outer → ❌
+🌍 global → ❌
+
+Since it finds nothing…
+
+👉 It CREATES x in the Global Room.
+
+Now:
+
+🌍 x = 500   ✅ created globally
+🧠 Final Complete Rule
+When READING a variable:
+Start in current room
+Move outward
+Stop at first match
+When using <-:
+Create/change variable in current room only
+When using <<-:
+Search outward
+If found → change first match
+If not found → create in Global room
+🎯 Big Picture Diagram
+Search direction:
+Inner → Parent → Parent → Global
+
+Modification with <<-:
+Change first one found
+Else create in Global

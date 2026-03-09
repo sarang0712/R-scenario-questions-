@@ -1,0 +1,127 @@
+Here’s a practical Regex Cheat Sheet for SDTM variable selection in R (very useful when working with domains like LB, VS, AE, DM). These patterns are commonly used with select(matches()) in dplyr.
+
+SDTM Regex Cheat Sheet (for R)
+1️⃣ Select all TEST variables
+
+Variables like:
+
+VSTEST
+VSTESTCD
+LBTEST
+LBTESTCD
+select(matches("TEST(CD)?$"))
+
+Explanation:
+
+Part	Meaning
+TEST	literal text
+(CD)?	optional "CD"
+$	end of column name
+2️⃣ Select Original Results
+
+Variables like:
+
+LBORRES
+VSORRES
+AEORRES
+select(matches("ORRES$"))
+
+$ ensures the name ends with ORRES.
+
+3️⃣ Select Standardized Results
+
+Variables like:
+
+LBSTRESC
+LBSTRESN
+LBSTRESU
+select(matches("STRES"))
+
+Or more strict:
+
+select(matches("^LBSTRES"))
+Variable	Meaning
+STRESC	standardized result (character)
+STRESN	standardized result (numeric)
+STRESU	standardized unit
+4️⃣ Select Date/Time variables
+
+Variables like:
+
+LBDTC
+VSDTC
+AESTDTC
+AEENDTC
+select(matches("DTC$"))
+
+$ ensures the variable ends with DTC.
+
+5️⃣ Select Study Day variables
+
+Variables like:
+
+LBDY
+VSDY
+AESTDY
+AEENDY
+select(matches("DY$"))
+6️⃣ Select Timing variables together
+
+Example:
+
+LBDTC
+LBDY
+VSDTC
+VSDY
+select(matches("DTC$|DY$"))
+
+| means OR.
+
+7️⃣ Select Results (ORRES + STRES)
+
+Example:
+
+LBORRES
+LBSTRESC
+LBSTRESN
+LBSTRESU
+select(matches("ORRES$|STRES"))
+8️⃣ Select all Units
+
+Variables like:
+
+LBORRESU
+LBSTRESU
+VSSTRESU
+select(matches("RESU$"))
+Example in practice
+lb |>
+  select(matches("TEST(CD)?$|ORRES$|STRES|DTC$|DY$"))
+
+This quickly extracts key analysis variables.
+
+Quick Regex Symbols
+Symbol	Meaning
+^	start of string
+$	end of string
+`	`
+()	grouping
+?	optional
+
+Example:
+
+TEST(CD)?$
+
+means:
+
+TEST
+or
+TESTCD
+
+💡 Real clinical programming trick
+
+To quickly inspect a domain:
+
+names(lb)[grepl("TEST|ORRES|STRES", names(lb))]
+
+This helps you find the important result variables immediately.
