@@ -243,3 +243,121 @@ Find carrier with lowest average arrival delay.
 Problem 20 – Most Common Route
 
 Find the most frequent route (origin → dest).
+
+Below are 30 real-style interview questions, grouped from easy → advanced. Try solving them yourself first.
+
+🟢 Level 1 – Basic Data Exploration
+
+Count the total number of flights in the dataset.
+
+Find the number of unique carriers.
+
+Find the number of flights departing from each origin airport.
+
+Find the number of flights per destination (dest).
+
+Show the top 10 destinations with most flights.
+
+Find the earliest departure time.
+
+Find the maximum arrival delay.
+
+🟡 Level 2 – Grouping & Aggregations
+
+Calculate the average arrival delay per carrier.
+
+Calculate the average departure delay per month.
+
+Find the maximum arrival delay per carrier.
+
+Find the minimum departure delay per origin airport.
+
+Calculate the average flight distance per carrier.
+
+Find the total number of flights per month.
+
+🟠 Level 3 – Filtering & Conditions
+
+Find flights where arrival delay > 60 minutes.
+
+Find flights where departure delay < 0 (left early).
+
+Find flights where arrival delay is negative.
+
+Find flights where dep_delay > arr_delay.
+
+Find flights where distance > 2000 miles.
+
+🔵 Level 4 – Ranking Problems (Very common in interviews)
+
+Find the top 5 flights with highest arrival delay.
+
+Find the top 3 longest flights by distance.
+
+Find the 2nd highest arrival delay per carrier.
+
+Find the 3rd longest flight distance per carrier.
+
+Find the top 5 carriers with highest average arrival delay.
+
+🟣 Level 5 – Calculations with mutate()
+
+Create a column:
+
+total_delay = dep_delay + arr_delay
+
+Find flights with largest total delay.
+
+Create a column:
+
+speed = distance / air_time
+
+Find the top 10 fastest flights.
+
+Create a column:
+
+delay_difference = arr_delay - dep_delay
+
+Find flights where arrival delay increased the most.
+
+🔴 Level 6 – Scenario / Real Analyst Questions
+
+Find the carrier with the most flights.
+
+Find the destination with the highest average arrival delay.
+
+Find the month with the worst departure delays.
+
+Find the route (origin → dest) with the highest average delay.
+
+⭐ Bonus (Very Common in Interviews)
+
+These are classic questions interviewers love:
+
+Find most reliable carrier (lowest average delay)
+
+Find destination with longest average distance
+
+Find fastest flight per carrier
+
+Find top 3 delayed flights per carrier
+
+💡 Interview Tip
+
+Most questions can be solved with combinations of:
+
+group_by()
+
+summarise()
+
+filter()
+
+mutate()
+
+arrange()
+
+slice_max()
+
+slice_min()
+
+from dplyr.
