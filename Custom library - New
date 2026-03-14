@@ -1,0 +1,22 @@
+# Set CRAN mirror
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+# Set custom library path
+.libPaths(c("C:/Users/GujarathiS/OneDrive - ICON CLINICAL RESEARCH LTD - IRELAND/Desktop/Library", .libPaths()))
+
+# Check library paths
+.libPaths()
+
+# Install required packages
+install.packages("nycflights23")
+install.packages("dplyr")
+install.packages("tidyverse")
+
+# Load libraries
+library(nycflights23)
+library(dplyr)
+library(tidyverse)
+
+# View datasets
+head(airlines)
+View(flights)
