@@ -1,0 +1,138 @@
+Common Commands in dplyr / tidyverse:-
+| Function         | Package | Purpose                         | Example                                                         |
+| ---------------- | ------- | ------------------------------- | --------------------------------------------------------------- |
+| `filter()`       | dplyr   | Select rows based on conditions | `filter(flights, dep_delay > 60)`                               |
+| `select()`       | dplyr   | Select specific columns         | `select(flights, year, month, day)`                             |
+| `arrange()`      | dplyr   | Sort rows                       | `arrange(flights, dep_delay)`                                   |
+| `mutate()`       | dplyr   | Create new variables            | `mutate(flights, gain = arr_delay - dep_delay)`                 |
+| `summarise()`    | dplyr   | Create summary statistics       | `summarise(flights, avg_delay = mean(dep_delay, na.rm = TRUE))` |
+| `group_by()`     | dplyr   | Group data for summaries        | `group_by(flights, carrier)`                                    |
+| `distinct()`     | dplyr   | Remove duplicate rows           | `distinct(flights, carrier)`                                    |
+| `rename()`       | dplyr   | Rename columns                  | `rename(flights, airline = carrier)`                            |
+| `slice()`        | dplyr   | Select rows by position         | `slice(flights, 1:10)`                                          |
+| `count()`        | dplyr   | Count occurrences               | `count(flights, carrier)`                                       |
+| `left_join()`    | dplyr   | Join two datasets               | `left_join(flights, airlines, by="carrier")`                    |
+| `right_join()`   | dplyr   | Keep rows from right table      | `right_join(flights, airlines, by="carrier")`                   |
+| `inner_join()`   | dplyr   | Keep matching rows only         | `inner_join(flights, airlines, by="carrier")`                   |
+| `full_join()`    | dplyr   | Keep all rows from both tables  | `full_join(flights, airlines, by="carrier")`                    |
+| `pull()`         | dplyr   | Extract a column as a vector    | `pull(flights, dep_delay)`                                      |
+| `glimpse()`      | dplyr   | Quick structure of data         | `glimpse(flights)`                                              |
+| `tibble()`       | tibble  | Create modern dataframe         | `tibble(x=1:5, y=6:10)`                                         |
+| `pivot_longer()` | tidyr   | Convert wide → long format      | `pivot_longer(data, cols=a:c)`                                  |
+| `pivot_wider()`  | tidyr   | Convert long → wide format      | `pivot_wider(data)`                                             |
+
+Example Workflow Using dplyr:-
+library(dplyr)
+
+flights %>%
+  filter(dep_delay > 60) %>%
+  group_by(carrier) %>%
+  summarise(avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  arrange(desc(avg_delay))
+
+##The operator %>% (pipe) from tidyverse passes results from one step to the next, making code easier to read.
+
+#Below is a comprehensive table of commonly used commands in the dplyr, tidyr, tibble, stringr, readr, and ggplot2 packages (all part of the tidyverse).
+#These are the most important commands used for data manipulation, cleaning, and visualization in R
+
+#Complete List of Tidyverse / dplyr Commands
+| Function         | Package  | Purpose                        | Example                                                 |
+| ---------------- | -------- | ------------------------------ | ------------------------------------------------------- |
+| `filter()`       | dplyr    | Select rows based on condition | `filter(flights, dep_delay > 30)`                       |
+| `select()`       | dplyr    | Choose specific columns        | `select(flights, year, month, day)`                     |
+| `arrange()`      | dplyr    | Sort rows                      | `arrange(flights, dep_delay)`                           |
+| `mutate()`       | dplyr    | Create new variables           | `mutate(flights, speed = distance/air_time*60)`         |
+| `summarise()`    | dplyr    | Calculate summary statistics   | `summarise(flights, avg = mean(dep_delay, na.rm=TRUE))` |
+| `group_by()`     | dplyr    | Group dataset                  | `group_by(flights, carrier)`                            |
+| `ungroup()`      | dplyr    | Remove grouping                | `ungroup(flights)`                                      |
+| `distinct()`     | dplyr    | Remove duplicate rows          | `distinct(flights, carrier)`                            |
+| `rename()`       | dplyr    | Rename columns                 | `rename(flights, airline = carrier)`                    |
+| `relocate()`     | dplyr    | Move columns                   | `relocate(flights, carrier, .before = flight)`          |
+| `slice()`        | dplyr    | Select rows by index           | `slice(flights, 1:10)`                                  |
+| `slice_head()`   | dplyr    | First rows                     | `slice_head(flights, n=5)`                              |
+| `slice_tail()`   | dplyr    | Last rows                      | `slice_tail(flights, n=5)`                              |
+| `slice_sample()` | dplyr    | Random rows                    | `slice_sample(flights, n=10)`                           |
+| `count()`        | dplyr    | Count observations             | `count(flights, carrier)`                               |
+| `add_count()`    | dplyr    | Add count column               | `add_count(flights, carrier)`                           |
+| `pull()`         | dplyr    | Extract column as vector       | `pull(flights, dep_delay)`                              |
+| `glimpse()`      | dplyr    | View structure                 | `glimpse(flights)`                                      |
+| `%>%`            | magrittr | Pipe operator                  | `data %>% filter(x>5)`                                  |
+| `case_when()`    | dplyr    | Multiple conditions            | `case_when(dep_delay>60 ~ "Late")`                      |
+| `if_else()`      | dplyr    | Conditional variable           | `if_else(dep_delay>0,"Late","OnTime")`                  |
+| `across()`       | dplyr    | Apply function to many columns | `summarise(across(where(is.numeric), mean))`            |
+| `between()`      | dplyr    | Value within range             | `filter(flights, between(dep_delay,10,30))`             |
+| `near()`         | dplyr    | Compare floating numbers       | `filter(data, near(x,10))`                              |
+
+#Join Functions
+| Function       | Purpose                        | Example                                       |
+| -------------- | ------------------------------ | --------------------------------------------- |
+| `left_join()`  | Keep all rows from left table  | `left_join(flights, airlines, by="carrier")`  |
+| `right_join()` | Keep all rows from right table | `right_join(flights, airlines, by="carrier")` |
+| `inner_join()` | Keep matching rows only        | `inner_join(flights, airlines, by="carrier")` |
+| `full_join()`  | Keep all rows from both tables | `full_join(flights, airlines, by="carrier")`  |
+| `semi_join()`  | Rows in x that match y         | `semi_join(flights, airlines)`                |
+| `anti_join()`  | Rows in x not in y             | `anti_join(flights, airlines)`                |
+
+#Tidyr (Data Reshaping)
+
+| Function         | Purpose               | Example                                |
+| ---------------- | --------------------- | -------------------------------------- |
+| `pivot_longer()` | Wide → long format    | `pivot_longer(data, cols=a:c)`         |
+| `pivot_wider()`  | Long → wide format    | `pivot_wider(data)`                    |
+| `separate()`     | Split column          | `separate(data, col, into=c("a","b"))` |
+| `unite()`        | Combine columns       | `unite(data, new, a, b)`               |
+| `drop_na()`      | Remove missing values | `drop_na(data)`                        |
+| `replace_na()`   | Replace NA values     | `replace_na(list(x=0))`                |
+| `fill()`         | Fill missing values   | `fill(data, x)`                        |
+
+#Tibble (Modern Data Frames)
+| Function       | Purpose           | Example                  |
+| -------------- | ----------------- | ------------------------ |
+| `tibble()`     | Create tibble     | `tibble(x=1:5,y=6:10)`   |
+| `as_tibble()`  | Convert to tibble | `as_tibble(df)`          |
+| `add_row()`    | Add row           | `add_row(df, x=10,y=20)` |
+| `add_column()` | Add column        | `add_column(df,z=1:5)`   |
+
+#Stringr (Text Handling)
+
+| Function         | Purpose           | Example                     |
+| ---------------- | ----------------- | --------------------------- |
+| `str_detect()`   | Detect pattern    | `str_detect(name,"A")`      |
+| `str_replace()`  | Replace text      | `str_replace(name,"A","B")` |
+| `str_to_upper()` | Uppercase         | `str_to_upper(name)`        |
+| `str_to_lower()` | Lowercase         | `str_to_lower(name)`        |
+| `str_length()`   | Length of string  | `str_length(name)`          |
+| `str_sub()`      | Extract substring | `str_sub(name,1,3)`         |
+
+#Readr (Import Data)
+| Function       | Purpose             | Example                      |
+| -------------- | ------------------- | ---------------------------- |
+| `read_csv()`   | Read CSV file       | `read_csv("data.csv")`       |
+| `read_delim()` | Read delimited file | `read_delim("data.txt")`     |
+| `write_csv()`  | Export CSV          | `write_csv(data,"file.csv")` |
+
+#ggplot2 (Visualization)
+| Function           | Purpose        | Example                 |
+| ------------------ | -------------- | ----------------------- |
+| `ggplot()`         | Create plot    | `ggplot(data,aes(x,y))` |
+| `geom_point()`     | Scatter plot   | `geom_point()`          |
+| `geom_line()`      | Line chart     | `geom_line()`           |
+| `geom_bar()`       | Bar chart      | `geom_bar()`            |
+| `geom_histogram()` | Histogram      | `geom_histogram()`      |
+| `geom_boxplot()`   | Box plot       | `geom_boxplot()`        |
+| `labs()`           | Add labels     | `labs(title="Plot")`    |
+| `theme()`          | Customize plot | `theme_minimal()`       |
+
+The tidyverse ecosystem mainly includes:
+
+dplyr → data manipulation
+
+tidyr → data reshaping
+
+tibble → modern data frames
+
+stringr → text processing
+
+readr → data import
+
+ggplot2 → data visualization
