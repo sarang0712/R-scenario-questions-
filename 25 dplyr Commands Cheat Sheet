@@ -1,0 +1,36 @@
+Top 25 dplyr Commands Cheat Sheet (Flights Dataset)
+| No. | Command           | Purpose                     | Example                                                  |
+| --- | ----------------- | --------------------------- | -------------------------------------------------------- |
+| 1   | `filter()`        | Select rows with conditions | `filter(flights, dep_delay > 30)`                        |
+| 2   | `select()`        | Choose specific columns     | `select(flights, year, month, day)`                      |
+| 3   | `arrange()`       | Sort data                   | `arrange(flights, dep_delay)`                            |
+| 4   | `arrange(desc())` | Sort descending             | `arrange(flights, desc(dep_delay))`                      |
+| 5   | `mutate()`        | Create new variable         | `mutate(flights, gain = arr_delay - dep_delay)`          |
+| 6   | `summarise()`     | Calculate summary values    | `summarise(flights, avg = mean(dep_delay, na.rm=TRUE))`  |
+| 7   | `group_by()`      | Group data                  | `group_by(flights, carrier)`                             |
+| 8   | `ungroup()`       | Remove grouping             | `ungroup(flights)`                                       |
+| 9   | `distinct()`      | Unique values               | `distinct(flights, carrier)`                             |
+| 10  | `rename()`        | Rename column               | `rename(flights, airline = carrier)`                     |
+| 11  | `relocate()`      | Move column position        | `relocate(flights, carrier, .before = flight)`           |
+| 12  | `slice()`         | Select rows by number       | `slice(flights, 1:10)`                                   |
+| 13  | `slice_head()`    | First rows                  | `slice_head(flights, n = 5)`                             |
+| 14  | `slice_tail()`    | Last rows                   | `slice_tail(flights, n = 5)`                             |
+| 15  | `slice_sample()`  | Random sample               | `slice_sample(flights, n = 10)`                          |
+| 16  | `count()`         | Count rows                  | `count(flights, carrier)`                                |
+| 17  | `pull()`          | Extract column as vector    | `pull(flights, dep_delay)`                               |
+| 18  | `glimpse()`       | Quick data structure        | `glimpse(flights)`                                       |
+| 19  | `if_else()`       | Conditional variable        | `mutate(status = if_else(dep_delay>0,"Late","On Time"))` |
+| 20  | `case_when()`     | Multiple conditions         | `case_when(dep_delay>60~"Very Late")`                    |
+| 21  | `between()`       | Check range                 | `filter(flights, between(dep_delay,10,30))`              |
+| 22  | `left_join()`     | Join tables                 | `left_join(flights, airlines, by="carrier")`             |
+| 23  | `inner_join()`    | Matching rows only          | `inner_join(flights, airlines, by="carrier")`            |
+| 24  | `anti_join()`     | Rows not matching           | `anti_join(flights, airlines, by="carrier")`             |
+| 25  | `%>%`             | Pipe operator               | `flights %>% filter(dep_delay > 30)`                     |
+
+
+Very Useful Commands for Exploring Flights Data:
+View(flights)
+glimpse(flights)
+summary(flights)
+count(flights, carrier)
+distinct(flights, origin)
