@@ -1,0 +1,108 @@
+Basic Data Exploration
+| No. | Question                                                 |
+| --- | -------------------------------------------------------- |
+| 1   | Display the first 10 rows of the flights dataset.        |
+| 2   | View the structure of the flights dataset.               |
+| 3   | Count the total number of flights.                       |
+| 4   | Show only the columns `year`, `month`, `day`, `carrier`. |
+| 5   | Display all unique airlines (`carrier`).                 |
+
+Filtering Data
+
+| No. | Question                                                   |
+| --- | ---------------------------------------------------------- |
+| 6   | Show flights with departure delay greater than 60 minutes. |
+| 7   | Find flights departing from JFK airport.                   |
+| 8   | Show flights arriving in LAX airport.                      |
+| 9   | Find flights with arrival delay greater than 120 minutes.  |
+| 10  | Filter flights that departed in January.                   |
+
+#Sorting Data
+
+| No. | Question                                     |
+| --- | -------------------------------------------- |
+| 11  | Sort flights by departure delay (ascending). |
+| 12  | Sort flights by arrival delay (descending).  |
+| 13  | Show the top 10 most delayed flights.        |
+| 14  | Show the 10 earliest departing flights.      |
+| 15  | Arrange flights by month and day.            |
+
+#Creating New Variables
+
+| No. | Question                                                   |
+| --- | ---------------------------------------------------------- |
+| 16  | Create a new column called `gain = arr_delay - dep_delay`. |
+| 17  | Create a column called `speed = distance / air_time * 60`. |
+| 18  | Create a column showing if the flight was late or on time. |
+| 19  | Categorize delays as “Short”, “Medium”, “Long”.            |
+| 20  | Convert distance from miles to kilometers.                 |
+
+#Grouping and Summaries
+| No. | Question                                          |
+| --- | ------------------------------------------------- |
+| 21  | Find average departure delay.                     |
+| 22  | Calculate average arrival delay for each airline. |
+| 23  | Count number of flights for each carrier.         |
+| 24  | Find average delay by airport of origin.          |
+| 25  | Find maximum arrival delay for each airline.      |
+
+#Advanced dplyr Operations
+
+| No. | Question                                          |
+| --- | ------------------------------------------------- |
+| 26  | Find airlines with the most flights.              |
+| 27  | Find the day with the highest number of flights.  |
+| 28  | Calculate average distance flown by each airline. |
+| 29  | Find flights with missing departure delays.       |
+| 30  | Remove rows with missing values.                  |
+
+#Working with Multiple Columns
+
+| No. | Question                                     |
+| --- | -------------------------------------------- |
+| 31  | Select columns related to delays only.       |
+| 32  | Calculate mean of all numeric columns.       |
+| 33  | Rename `dep_delay` to `departure_delay`.     |
+| 34  | Move `carrier` column to the first position. |
+| 35  | Count flights by month.                      |
+
+#Sampling and Slicing
+
+| No. | Question                                  |
+| --- | ----------------------------------------- |
+| 36  | Select the first 5 rows of the dataset.   |
+| 37  | Select the last 5 rows of the dataset.    |
+| 38  | Take a random sample of 20 flights.       |
+| 39  | Extract rows 50 to 100.                   |
+| 40  | Show top 5 flights with longest distance. |
+
+#Joining Data
+
+(Using airlines dataset)
+| No. | Question                             |
+| --- | ------------------------------------ |
+| 41  | Join flights with airline names.     |
+| 42  | Show airline name and flight delays. |
+| 43  | Find average delay by airline name.  |
+| 44  | Show flights with airline details.   |
+| 45  | Find airlines with highest delays.   |
+
+#Real Analysis Questions
+| No. | Question                                             |
+| --- | ---------------------------------------------------- |
+| 46  | Which airline has the highest average arrival delay? |
+| 47  | Which airport has the most departures?               |
+| 48  | Which month has the most delays?                     |
+| 49  | What is the longest flight distance?                 |
+| 50  | Which airline operates the most flights?             |
+
+Example Full Analysis
+library(dplyr)
+
+flights %>%
+  group_by(carrier) %>%
+  summarise(
+    flights = n(),
+    avg_delay = mean(arr_delay, na.rm = TRUE)
+  ) %>%
+  arrange(desc(avg_delay))
