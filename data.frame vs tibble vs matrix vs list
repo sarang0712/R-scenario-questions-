@@ -1,0 +1,112 @@
+🔥 Differences (Very Important)
+| Feature   | Vector      | List            | Tibble                |
+| --------- | ----------- | --------------- | --------------------- |
+| Data Type | Same        | Mixed           | Mixed (column-wise)   |
+| Structure | 1D          | Flexible        | 2D table              |
+| Use       | Simple data | Complex objects | Data analysis         |
+| Example   | `c(1,2,3)`  | `list(1,"A")`   | `tibble(x=1:3,y=4:6)` |
+
+🧠 Simple Way to Remember
+
+Vector → Same type (simple)
+List   → Mixed type (container)
+Tibble → Table (data analysis)
+
+
+| Feature    | data.frame        | tibble            | matrix    | list            |
+| ---------- | ----------------- | ----------------- | --------- | --------------- |
+| Structure  | 2D                | 2D                | 2D        | Flexible        |
+| Data Types | Mixed (by column) | Mixed (by column) | Same only | Mixed           |
+| Use        | General data      | Data analysis     | Math ops  | Complex storage |
+| Package    | Base R            | tidyverse         | Base R    | Base R          |
+
+
+🔥 1️⃣ Data Frame
+Definition
+
+A data.frame is a table where:
+
+Rows = observations
+
+Columns = variables
+
+Each column can have different data types
+
+df <- data.frame(
+  name = c("A", "B"),
+  age = c(20, 25)
+)
+
+df <- data.frame(
+  name = c("A", "B"),
+  age = c(20, 25)
+)
+🔥 2️⃣ Tibble (Modern Data Frame)
+Definition
+
+A tibble is an improved version of data.frame from tidyverse.
+
+Example
+library(tibble)
+
+tb <- tibble(
+  name = c("A", "B"),
+  age = c(20, 25)
+)
+Key Improvements over data.frame
+Feature	data.frame	tibble
+Printing	Full output	Clean preview
+Strings	Converts to factor (old)	Keeps as character
+Column access	Less strict	More strict
+🔥 3️⃣ Matrix
+Definition
+
+A matrix is a 2D structure where:
+
+All elements must be same data type
+
+Example
+m <- matrix(c(1,2,3,4), nrow = 2)
+Output
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+Key Points
+
+Only one data type allowed
+
+Used for mathematical operations
+
+🔥 4️⃣ List
+Definition
+
+A list is a container that can store:
+
+Different data types
+
+Different structures
+
+Example
+lst <- list(
+  name = "John",
+  age = 25,
+  scores = c(90, 80)
+)
+Key Points
+
+Most flexible structure
+
+Can contain anything (even data frames, matrices)
+
+Matrix → Same type
+List   → Anything
+Data.frame → Table (old)
+Tibble → Table (modern)
+
+A matrix stores data of the same type, while a list can store mixed data types and structures.
+A data.frame is a tabular structure where each column can have different types,
+and a tibble is a modern version of data.frame with better printing and stricter behavior used in tidyverse.
+
+A matrix stores data of the same type, while a list can store mixed data types and structures.
+A data.frame is a tabular structure where each column can have different types, and a tibble is a modern version of data.
+frame with better printing and stricter behavior used in tidyverse.
