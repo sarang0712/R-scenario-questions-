@@ -1,0 +1,52 @@
+
+How mutate(per = mean(...)) works: Groupwise vs Rowwise
+
+1. group_by(carrier) splits the data into groups. Each carrier becomes its own mini table.
+
+2. mutate(per = mean(dep_time > 0, na.rm = TRUE)) computes ONE value per group:
+   - dep_time > 0 produces a TRUE/FALSE vector for the entire group
+   - mean(TRUE/FALSE) returns the proportion of TRUE values
+   - This is ONE number per carrier
+
+3. mutate() then attaches this SAME number to EVERY row in that carrier group.
+   So per is constant within a carrier.
+
+4. filter(per > 0.08) keeps all rows for carriers with per > 0.08.
+
+5. mutate() here is not rowwise. It is groupwise and columnwise.
+
+Example:
+Data:
+carrier | dep_time
+AA      | 500
+AA      | NA
+AA      | 1200
+UA      | NA
+UA      | 700
+
+Step 1: group_by(carrier)
+Creates AA group and UA group.
+
+Step 2: Compute mean(dep_time > 0)
+AA: TRUE, NA, TRUE -> mean = 1.00
+UA: NA, TRUE -> mean = 1.00
+
+Step 3: Assign per to each row in group:
+AA rows get per=1.00
+UA rows get per=1.00
+
+Thus per is repeated inside each carrier.
+
+Summary: mutate() computes a group-level value and repeats it for each row.
+
+
+mutate() does NOT compute rowwise here.
+It does:
+ONE calculation per group 
+then copy the result to every row of the group
+
+mutate(per = mean(dep_time > 0)) does NOT run row by row.
+
+It runs once per group.
+It creates ONE number per carrier.
+That number is copied into every row of that carrier.
