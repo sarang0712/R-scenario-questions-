@@ -1,0 +1,204 @@
+| Regex Pattern | Description                       | R Example                                   | Output           |                      |           |
+| ------------- | --------------------------------- | ------------------------------------------- | ---------------- | -------------------- | --------- |
+| `.`           | Any single character              | `grepl("a.c", "abc adc aec")`               | `TRUE TRUE TRUE` |                      |           |
+| `^`           | Start of string                   | `grep("^a", c("apple","banana"))`           | `"apple"`        |                      |           |
+| `$`           | End of string                     | `grep("e$", c("apple","pie"))`              | `"apple" "pie"`  |                      |           |
+| `*`           | 0 or more repetitions             | `grep("a*", c("aaa","b"))`                  | `"aaa" "b"`      |                      |           |
+| `+`           | 1 or more repetitions             | `grep("a+", c("aaa","b"))`                  | `"aaa"`          |                      |           |
+| `?`           | 0 or 1 repetition                 | `grep("a?", c("a","aa","b"))`               | `"a" "aa" "b"`   |                      |           |
+| `{n}`         | Exactly n repetitions             | `grep("a{2}", c("a","aa","aaa"))`           | `"aa" "aaa"`     |                      |           |
+| `{n,}`        | At least n repetitions            | `grep("a{2,}", c("a","aa","aaa"))`          | `"aa" "aaa"`     |                      |           |
+| `{n,m}`       | Between n and m repetitions       | `grep("a{2,3}", c("a","aa","aaa","aaaa"))`  | `"aa" "aaa"`     |                      |           |
+| `[]`          | Any character inside brackets     | `grep("[abc]", c("a","d","b"))`             | `"a" "b"`        |                      |           |
+| `[^]`         | Any character NOT inside brackets | `grep("[^abc]", c("a","d","b"))`            | `"d"`            |                      |           |
+| `             | `                                 | OR operator                                 | `grep("a         | b", c("a","c","b"))` | `"a" "b"` |
+| `()`          | Grouping                          | `grep("(ab)+", c("ab","abab","a"))`         | `"ab" "abab"`    |                      |           |
+| `\d`          | Digit `[0-9]`                     | `gsub("\\d", "#", "R123")`                  | `"R###"`         |                      |           |
+| `\D`          | Non-digit                         | `gsub("\\D", "#", "R123")`                  | `"###123"`       |                      |           |
+| `\w`          | Word character `[a-zA-Z0-9_]`     | `gsub("\\w", "#", "Hi_123!")`               | `"######!"`      |                      |           |
+| `\W`          | Non-word character                | `gsub("\\W", "#", "Hi_123!")`               | `"Hi_123#"`      |                      |           |
+| `\s`          | Whitespace                        | `gsub("\\s", "_", "R is fun")`              | `"R_is_fun"`     |                      |           |
+| `\S`          | Non-whitespace                    | `gsub("\\S", "_", "R is fun")`              | `"_ _ ___"`      |                      |           |
+| `\b`          | Word boundary                     | `grep("\\bfun\\b", "R is fun", value=TRUE)` | `"R is fun"`     |                      |           |
+| `\B`          | Not a word boundary               | `grep("\\Bun", "fun", value=TRUE)`          | `"fun"`          |                      |           |
+
+
+**************************************************************************************************************************************************************************************************************
+Common R Functions for Regex:-
+| Function     | Description                          | Example                                 | Output   |
+| ------------ | ------------------------------------ | --------------------------------------- | -------- |
+| `grep()`     | Returns indices or values of matches | `grep("a", c("cat","dog"), value=TRUE)` | `"cat"`  |
+| `grepl()`    | Returns TRUE/FALSE if match exists   | `grepl("a", "cat")`                     | `TRUE`   |
+| `sub()`      | Replace first match                  | `sub("\\d", "#", "R123")`               | `"R#23"` |
+| `gsub()`     | Replace all matches                  | `gsub("\\d", "#", "R123")`              | `"R###"` |
+| `regexpr()`  | Position of first match              | `regexpr("a", "cat")`                   | `2`      |
+| `gregexpr()` | Position of all matches              | `gregexpr("a", "banana")`               | `2 4 6`  |
+
+
+**************************************************************************************************************************************************************************************************************
+
+Step 1: Group Operators by Category
+1. Position / Anchors
+| Operator | What to call it in interview | Example                                   |
+| -------- | ---------------------------- | ----------------------------------------- |
+| `^`      | Start of string anchor       | `^a` → matches “apple”                    |
+| `$`      | End of string anchor         | `e$` → matches “apple”                    |
+| `\b`     | Word boundary                | `\bcat\b` → matches “cat” as a whole word |
+| `\B`     | Not word boundary            | `\Bcat` → matches “catch”                 |
+
+2. Repetition / Quantifiers
+
+| Operator | What to call it        | Example                |
+| -------- | ---------------------- | ---------------------- |
+| `*`      | 0 or more              | `a*` → "", "a", "aa"   |
+| `+`      | 1 or more              | `a+` → "a", "aa"       |
+| `?`      | 0 or 1 (optional)      | `a?` → "", "a"         |
+| `{n}`    | Exact n repetitions    | `a{2}` → "aa"          |
+| `{n,}`   | At least n repetitions | `a{2,}` → "aa", "aaa"  |
+| `{n,m}`  | Between n and m        | `a{2,3}` → "aa", "aaa" |
+
+3. Character Classes
+
+| Operator | What to call it         | Example                                  |
+| -------- | ----------------------- | ---------------------------------------- |
+| `[abc]`  | Any of these characters | `[abc]` → "a", "b", "c"                  |
+| `[^abc]` | Not these characters    | `[^abc]` → anything except "a", "b", "c" |
+| `\d`     | Digit                   | `\d` → 0-9                               |
+| `\D`     | Non-digit               | `\D` → a, b, !                           |
+| `\w`     | Word character          | `\w` → letters, digits, underscore       |
+| `\W`     | Non-word character      | `\W` → symbols, spaces                   |
+| `\s`     | Whitespace              | `\s` → space, tab                        |
+| `\S`     | Non-whitespace          | `\S` → letters, numbers                  |
+
+4. Grouping / Alternation
+
+| Operator | What to call it | Example                |    |                 |
+| -------- | --------------- | ---------------------- | -- | --------------- |
+| `()`     | Grouping        | `(ab)+` → "ab", "abab" |    |                 |
+| `        | `               | OR / alternation       | `a | b` → "a" or "b" |
+
+5. Others
+
+| Operator | What to call it      | Example              |
+| -------- | -------------------- | -------------------- |
+| `.`      | Any single character | `a.c` → "abc", "a1c" |
+
+
+🔹 Step 2: Quick Mnemonics for Interviews
+^ → Start anchor → “beginning of string”
+$ → End anchor → “end of string”
+. → Any character → “dot means anything”
+* → 0 or more → “star = repeat zero or more”
++ → 1 or more → “plus = must occur at least once”
+? → Optional / 0 or 1 → “question = maybe”
+{n,m} → Range / exact counts → “curly = repeat count”
+[] → Character set → “square brackets = choose from these”
+[^] → Negated set → “caret inside [] = not these”
+() → Grouping → “parentheses = group pattern”
+| → OR → “pipe = either this or that”
+\d → Digit → “d = digit”
+\w → Word character → “w = word/letter/number/_”
+\s → Whitespace → “s = space/tab”
+\b → Word boundary → “b = word boundary”
+
+***********************************************************************************************************************************************************************************************************
+
+🔹 Regex Operators Cheat Sheet (R – Interview Friendly)
+
+| Symbol / Pattern | What to Call It             | R Example                                       | Output / Explanation |                                  |           |
+| ---------------- | --------------------------- | ----------------------------------------------- | -------------------- | -------------------------------- | --------- |
+| `^`              | Start anchor                | `grep("^a", c("apple","banana"), value=TRUE)`   | `"apple"`            |                                  |           |
+| `$`              | End anchor                  | `grep("e$", c("apple","pie"), value=TRUE)`      | `"apple" "pie"`      |                                  |           |
+| `.`              | Any character               | `grepl("a.c", c("abc","adc","aec"))`            | `TRUE TRUE TRUE`     |                                  |           |
+| `*`              | 0 or more (repeat)          | `grep("a*", c("","a","aa"))`                    | `"" "a" "aa"`        |                                  |           |
+| `+`              | 1 or more (repeat)          | `grep("a+", c("","a","aa"))`                    | `"a" "aa"`           |                                  |           |
+| `?`              | Optional / 0 or 1           | `grep("a?", c("","a","aa"))`                    | `"" "a" "aa"`        |                                  |           |
+| `{n}`            | Exact n repetitions         | `grep("a{2}", c("a","aa","aaa"))`               | `"aa" "aaa"`         |                                  |           |
+| `{n,}`           | At least n repetitions      | `grep("a{2,}", c("a","aa","aaa"))`              | `"aa" "aaa"`         |                                  |           |
+| `{n,m}`          | Between n and m repetitions | `grep("a{2,3}", c("a","aa","aaa","aaaa"))`      | `"aa" "aaa"`         |                                  |           |
+| `[]`             | Character set               | `grep("[abc]", c("a","d","b"), value=TRUE)`     | `"a" "b"`            |                                  |           |
+| `[^]`            | Negated set                 | `grep("[^abc]", c("a","d","b"), value=TRUE)`    | `"d"`                |                                  |           |
+| `()`             | Grouping                    | `grep("(ab)+", c("ab","abab","a"), value=TRUE)` | `"ab" "abab"`        |                                  |           |
+| `                | `                           | OR / Alternation                                | `grep("a             | b", c("a","c","b"), value=TRUE)` | `"a" "b"` |
+| `\d`             | Digit (0–9)                 | `gsub("\\d", "#", "R123")`                      | `"R###"`             |                                  |           |
+| `\D`             | Non-digit                   | `gsub("\\D", "#", "R123")`                      | `"###123"`           |                                  |           |
+| `\w`             | Word character              | `gsub("\\w", "#", "Hi_123!")`                   | `"######!"`          |                                  |           |
+| `\W`             | Non-word character          | `gsub("\\W", "#", "Hi_123!")`                   | `"Hi_123#"`          |                                  |           |
+| `\s`             | Whitespace                  | `gsub("\\s", "_", "R is fun")`                  | `"R_is_fun"`         |                                  |           |
+| `\S`             | Non-whitespace              | `gsub("\\S", "_", "R is fun")`                  | `"_ _ ___"`          |                                  |           |
+| `\b`             | Word boundary               | `grep("\\bfun\\b", "R is fun", value=TRUE)`     | `"R is fun"`         |                                  |           |
+| `\B`             | Not word boundary           | `grep("\\Bun", "fun", value=TRUE)`              | `"fun"`              |                                  |           |
+
+
+🔹 Tips for Interviews
+Call the operator by name, not just the symbol. For example:
+^ → “Start anchor”
+* → “Zero or more repetitions”
+[] → “Character set”
+Show a mini R example if asked. Even printing grepl() results is enough.
+Remember the 3 groups mentally:
+Anchors → ^, $, \b, \B
+Quantifiers / Repetition → *, +, ?, {n,m}
+Character sets & classes → [abc], [^abc], \d, \w, \s
+Grouping & alternation → (), |
+Dot / any character → .
+
+
+🌈 Regex Cheat Sheet (R – Visual / Interview Friendly)
+1️⃣ Anchors / Positions (Think “where in the string”)
+| Symbol | Name              | Example                                       | Output          |
+| ------ | ----------------- | --------------------------------------------- | --------------- |
+| `^`    | Start anchor      | `grep("^a", c("apple","banana"), value=TRUE)` | `"apple"`       |
+| `$`    | End anchor        | `grep("e$", c("apple","pie"), value=TRUE)`    | `"apple" "pie"` |
+| `\b`   | Word boundary     | `grep("\\bfun\\b", "R is fun", value=TRUE)`   | `"R is fun"`    |
+| `\B`   | Not word boundary | `grep("\\Bun", "fun", value=TRUE)`            | `"fun"`         |
+
+2️⃣ Quantifiers / Repetition (Think “how many times”)
+| Symbol  | Name              | Example                                    | Output        |
+| ------- | ----------------- | ------------------------------------------ | ------------- |
+| `*`     | 0 or more         | `grep("a*", c("","a","aa"))`               | `"" "a" "aa"` |
+| `+`     | 1 or more         | `grep("a+", c("","a","aa"))`               | `"a" "aa"`    |
+| `?`     | Optional / 0 or 1 | `grep("a?", c("","a","aa"))`               | `"" "a" "aa"` |
+| `{n}`   | Exactly n         | `grep("a{2}", c("a","aa","aaa"))`          | `"aa" "aaa"`  |
+| `{n,}`  | At least n        | `grep("a{2,}", c("a","aa","aaa"))`         | `"aa" "aaa"`  |
+| `{n,m}` | Between n–m       | `grep("a{2,3}", c("a","aa","aaa","aaaa"))` | `"aa" "aaa"`  |
+💡 Memory tip: Curly braces {} = count the repeats.
+
+3️⃣ Character Classes / Sets (Think “what characters”)
+| Symbol   | Name               | Example                                      | Output       |
+| -------- | ------------------ | -------------------------------------------- | ------------ |
+| `[abc]`  | Any of these       | `grep("[abc]", c("a","d","b"), value=TRUE)`  | `"a" "b"`    |
+| `[^abc]` | Not these          | `grep("[^abc]", c("a","d","b"), value=TRUE)` | `"d"`        |
+| `\d`     | Digit              | `gsub("\\d", "#", "R123")`                   | `"R###"`     |
+| `\D`     | Non-digit          | `gsub("\\D", "#", "R123")`                   | `"###123"`   |
+| `\w`     | Word character     | `gsub("\\w", "#", "Hi_123!")`                | `"######!"`  |
+| `\W`     | Non-word character | `gsub("\\W", "#", "Hi_123!")`                | `"Hi_123#"`  |
+| `\s`     | Whitespace         | `gsub("\\s", "_", "R is fun")`               | `"R_is_fun"` |
+| `\S`     | Non-whitespace     | `gsub("\\S", "_", "R is fun")`               | `"_ _ ___"`  |
+💡 Memory tip:
+
+\d = digit, \w = word, \s = space
+Capital letter = NOT that type (\D, \W, \S)
+
+4️⃣ Grouping & Alternation (Think “combine patterns”)
+| Symbol | Name     | Example                                         | Output        |                                  |           |
+| ------ | -------- | ----------------------------------------------- | ------------- | -------------------------------- | --------- |
+| `()`   | Grouping | `grep("(ab)+", c("ab","abab","a"), value=TRUE)` | `"ab" "abab"` |                                  |           |
+| `      | `        | OR / alternation                                | `grep("a      | b", c("a","c","b"), value=TRUE)` | `"a" "b"` |
+💡 Memory tip: Parentheses = group; Pipe = either/or.
+
+5️⃣ Dot / Wildcard
+
+| Symbol | Name                 | Example                              | Output           |
+| ------ | -------------------- | ------------------------------------ | ---------------- |
+| `.`    | Any single character | `grepl("a.c", c("abc","a1c","a-c"))` | `TRUE TRUE TRUE` |
+
+💡 Memory tip: Dot = anything goes (except newline).
+✅ Quick Interview Mnemonics
+Anchors: ^ start, $ end, \b word boundary
+Repeaters: * 0+, + 1+, ? optional, {n,m} counts
+Character classes: [abc] include, [^abc] exclude, \d, \w, \s
+Group & OR: () group, | or
+Wildcard: . any char
+
+Pro tip: When asked in interview, always name the operator first, then give a one-line R example — that’s enough to impress
