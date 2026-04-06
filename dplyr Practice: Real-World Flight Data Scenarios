@@ -1,0 +1,228 @@
+🚀 SCENARIO 1: Airline Operations Analysis
+📌 Context
+
+You are analyzing how different airlines operate and perform.
+
+❓ Questions
+How many flights does each airline operate?
+Which airlines operate more than 20,000 flights?
+What is the average departure delay for each airline?
+Which airline has the highest average delay?
+Which airline has the most consistent (least variable) delays?
+For each airline, what is the single most delayed flight?
+For each airline, what is the least delayed (or earliest) flight?
+Which airlines have more delayed flights than on-time flights?
+🚀 SCENARIO 2: Route Popularity
+📌 Context
+
+You want to understand which routes are most commonly used.
+
+❓ Questions
+How many flights exist for each route (origin → destination)?
+Which routes have more than 1,000 flights?
+What is the most popular route overall?
+For each origin airport, what is the most frequent destination?
+Which routes have the highest average delay?
+Which routes are the most consistent in terms of delays?
+Which routes rarely experience delays?
+🚀 SCENARIO 3: Airport Activity
+📌 Context
+
+You are analyzing airport-level operations.
+
+❓ Questions
+How many flights depart from each airport?
+Which airport has the most flights?
+What is the first recorded flight from each airport?
+What is the last recorded flight from each airport?
+For each day, what is the first flight from each airport?
+For each day, what is the last flight from each airport?
+Which airport experiences the highest average delays?
+Which airport has the most consistent departures?
+🚀 SCENARIO 4: Aircraft Utilization
+📌 Context
+
+You want to study aircraft usage patterns using tail numbers.
+
+❓ Questions
+How many flights does each aircraft (tailnum) operate?
+Which aircraft flew more than 100 times?
+Which aircraft is used the most?
+For each airline, which aircraft is used the most?
+Are there aircraft used by multiple airlines?
+Which aircraft has the highest average delay?
+Which aircraft has the most consistent performance?
+🚀 SCENARIO 5: Time-Based Patterns
+📌 Context
+
+You are analyzing how flights behave over time.
+
+❓ Questions
+How many flights occur each day?
+What is the average delay per day?
+Which day had the highest delays?
+For each airport, what is the first flight of each day?
+For each airport, what is the last flight of each day?
+Do delays increase over time within a day?
+Which flights show a sudden spike in delay compared to the previous flight?
+Which flights show a decrease in delay compared to the previous flight?
+🚀 SCENARIO 6: Delay Behavior
+📌 Context
+
+You are focusing only on delays and patterns.
+
+❓ Questions
+How many flights are delayed vs on time?
+What percentage of flights are delayed?
+What is the maximum delay recorded?
+What is the distribution of delays across airlines?
+Which flights have delays greater than 2 hours?
+Which airlines frequently have large delays?
+Which flights improved compared to the previous flight?
+Which flights got worse compared to the previous flight?
+🚀 SCENARIO 7: Group-Based Filtering
+📌 Context
+
+You need to filter data based on group conditions.
+
+❓ Questions
+Keep only airlines with more than 10,000 flights
+Keep only routes with more than 500 flights
+Keep only aircraft used more than 50 times
+Keep only airports with high average delay
+Keep only airlines where average delay is below a threshold
+Filter flights that are the first in their group
+Filter flights that are the last in their group
+Filter flights that are extreme (max/min) within group
+🚀 SCENARIO 8: Row-wise Comparisons (Lead/Lag)
+📌 Context
+
+You compare each flight with previous/next flights.
+
+❓ Questions
+Compare each flight’s delay with the previous flight
+Compare each flight’s delay with the next flight
+Find flights where delay increased from previous flight
+Find flights where delay decreased from previous flight
+Find flights where delay stayed the same
+Find flights where change in delay is greater than 30 minutes
+Detect patterns of increasing delays
+Detect patterns of decreasing delays
+🚀 SCENARIO 9: Ranking & Ordering
+📌 Context
+
+You need ranked insights.
+
+❓ Questions
+Rank airlines by number of flights
+Rank routes by popularity
+Rank airports by traffic
+Rank flights by delay
+For each airline, rank flights by delay
+Find top 3 delayed flights per airline
+Find least delayed flights per route
+Rank aircraft by usage
+🚀 SCENARIO 10: Mixed Challenge
+📌 Context
+
+Combine multiple concepts.
+
+❓ Questions
+For each airline, find the most frequent route
+For each airport, find the airline with most flights
+For each route, find the aircraft used most
+For each airline, find the first and last flight
+For each day, find the most delayed flight
+For each airline, calculate delay trend over time
+Find airlines that improved over time
+Find routes that became worse over time
+
+
+🚀 SCENARIO SET 1: Airline Performance
+🧩 Scenario
+
+You are working for an airline analytics team analyzing flight delays and operational efficiency.
+
+❓ Questions
+Find airlines that:
+Have at least 10,000 flights
+Have an average departure delay of less than 5 minutes
+For each airline:
+Find the flight with the maximum departure delay
+Find flights where:
+The departure delay increased compared to the previous flight within the same airline
+🚀 SCENARIO SET 2: Airport Traffic
+🧩 Scenario
+
+Airports want insights into traffic patterns and route popularity.
+
+❓ Questions
+Find routes (origin → destination) that have more than 1500 flights
+For each route (origin, destination):
+Find the first recorded flight
+For each airport and each day:
+Find the last flight of the day
+🚀 SCENARIO SET 3: Aircraft Usage
+🧩 Scenario
+
+You are analyzing aircraft utilization and efficiency using tail numbers.
+
+❓ Questions
+Find aircraft that:
+Have flown more than 200 times
+For each airline:
+Find the aircraft (tailnum) with the highest number of flights
+🚀 SCENARIO SET 4: Time-Based Patterns
+🧩 Scenario
+
+You are studying how delays change over time.
+
+❓ Questions
+Find flights where:
+Departure delay increased by more than 30 minutes compared to the previous flight
+For each airport and each day:
+Find the first (earliest) flight
+🚀 SCENARIO SET 5: Advanced Analysis
+🧩 Scenario
+
+You are identifying consistency and variability in performance.
+
+❓ Questions
+Find airlines where:
+The standard deviation of departure delay is less than 10
+Find routes (origin → destination) where:
+Delays are consistent (low variation)
+🧠 CONCEPTUAL QUESTIONS
+❓ C1
+
+What is the difference between:
+
+count(carrier)
+group_by(carrier) |> summarise(n = n())
+❓ C2
+
+When should you use:
+
+add_count()
+count()
+❓ C3
+
+Why can this be problematic?
+
+group_by(origin) |> head(1)
+❓ C4
+
+What is the difference between:
+
+slice_head()
+filter(row_number() == 1)
+❓ C5
+
+Why is it important to use arrange() before lag()?
+
+🏆 CHALLENGE QUESTION
+❓ Q13
+
+For each airline:
+
+Find the longest streak of increasing departure delays
