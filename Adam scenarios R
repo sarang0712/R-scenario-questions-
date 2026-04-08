@@ -1,0 +1,107 @@
+📊 DM (Demographics)
+dm <- data.frame(
+  STUDYID = "STUDY101",
+  DOMAIN = "DM",
+  USUBJID = c("ST101-001","ST101-002","ST101-003","ST101-004"),
+  SUBJID = c("001","002","003","004"),
+  SITEID = c("SITE1","SITE1","SITE2","SITE2"),
+  AGE = c(45, 52, 60, 39),
+  SEX = c("M","F","M","F"),
+  ARM = c("DrugA","Placebo","DrugA","DrugB"),
+  ARMCD = c("A","P","A","B"),
+  RACE = c("White","Asian","Black","White"),
+  stringsAsFactors = FALSE
+)
+
+📊 AE (Adverse Events)
+
+ae <- data.frame(
+  STUDYID = "STUDY101",
+  DOMAIN = "AE",
+  USUBJID = c("ST101-001","ST101-002","ST101-003","ST101-004","ST101-001"),
+  AESEQ = c(1,1,1,1,2),
+  AETERM = c("Headache","Nausea","Dizziness","Fatigue","Nausea"),
+  AESEV = c("MILD","MODERATE","SEVERE","MILD","MILD"),
+  AEREL = c("RELATED","POSSIBLY RELATED","RELATED","UNRELATED","RELATED"),
+  AESTDTC = as.Date(c("2026-01-07","2026-01-07","2026-01-07","2026-01-07","2026-01-14")),
+  AEENDTC = as.Date(c("2026-01-08","2026-01-09","2026-01-10","2026-01-08","2026-01-15")),
+  stringsAsFactors = FALSE
+)
+
+📊 LB (Laboratory Data)
+
+lb <- data.frame(
+  STUDYID = "STUDY101",
+  DOMAIN = "LB",
+  USUBJID = c("ST101-001","ST101-001","ST101-002","ST101-002","ST101-003","ST101-003"),
+  LBTESTCD = c("HGB","WBC","HGB","WBC","HGB","WBC"),
+  LBTEST = c("Hemoglobin","White Blood Cells","Hemoglobin","White Blood Cells","Hemoglobin","White Blood Cells"),
+  LBORRES = c(13.5,6.2,12.8,7.1,14.0,8.0),
+  LBORRESU = c("g/dL","10^3/uL","g/dL","10^3/uL","g/dL","10^3/uL"),
+  VISITNUM = c(1,1,1,1,1,1),
+  VISIT = c("Baseline","Baseline","Baseline","Baseline","Baseline","Baseline"),
+  stringsAsFactors = FALSE
+)
+
+
+✅ Task 1: ADSL (Subject-Level Analysis Dataset)
+
+Goal: Create subject-level dataset for analysis
+
+Required Variables
+
+USUBJID, AGE, SEX, ARM, ARMCD, RACE
+TRTSDT (first treatment date from exposure, simulate)
+TRTEDT (last treatment date)
+SAFETYFLAG (did subject have any AE?)
+
+💡 Hints:
+
+Group by USUBJID to derive first/last dates
+Check AE dataset to set SAFETYFLAG = Y/N
+Can be done with dplyr::group_by() + summarise() or proc sql/data step in SAS
+✅ Task 2: ADAE (Adverse Events Analysis Dataset)
+
+Goal: One row per AE per subject with derived flags
+
+Required Variables
+
+USUBJID, AESEQ, AETERM, AESEV, AEREL
+TRTEMFL (treatment-emergent flag: AE start ≥ first dose date)
+AERELFL (related to treatment flag)
+
+💡 Hints:
+
+Join AE → ADSL for treatment start date
+AE is treatment-emergent if AESTDTC >= TRTSDT
+Use mutate/if_else in R or if in SAS
+✅ Task 3: ADLB (Laboratory Analysis Dataset)
+
+Goal: Create analysis-ready lab dataset
+
+Required Variables
+
+USUBJID, LBTESTCD, LBTEST, LBORRES, LBORRESU
+BASE (baseline value)
+CHG (change from baseline)
+PCHG (percent change)
+
+💡 Hints:
+
+Baseline = first visit per subject & lab test
+CHG = LBORRES - BASE
+PCHG = CHG / BASE * 100
+group_by(USUBJID, LBTESTCD) in R or BY USUBJID LBTESTCD in SAS
+✅ Task 4: Summary/Analysis Table
+
+Goal: Summary per treatment
+
+Number of subjects with AE per ARM
+Mean/SD change in Hemoglobin per ARM
+Max/Min lab value per ARM
+
+💡 Hints:
+
+Aggregate datasets
+Use summarise() in R or proc means in SAS
+Join ADSL with ADAE/ADLB
