@@ -1,0 +1,137 @@
+# 📘 R `sprintf()` Cheat Sheet
+
+### Format Specifiers with Examples
+
+A beginner-friendly guide to string formatting in R using `sprintf()`, covering format specifiers like `%d`, `%f`, `%s`, `%e`, `%g`, along with precision, padding, and alignment.
+
+---
+
+## 🔹 What is `sprintf()`?
+
+`sprintf()` is used to **format and create strings** in R.
+
+```r
+sprintf("Score: %.2f", 9.45678)
+```
+
+**Output:**
+
+```
+Score: 9.46
+```
+
+---
+
+## 🔹 Basic Format Specifiers
+
+| Specifier   | Meaning | Example                    | Output   |
+| ----------- | ------- | -------------------------- | -------- |
+| `%s`        | String  | `sprintf("Hi %s", "John")` | Hi John  |
+| `%d` / `%i` | Integer | `sprintf("%d", 10)`        | 10       |
+| `%f`        | Float   | `sprintf("%f", 3.14)`      | 3.140000 |
+
+---
+
+## 🔹 Precision (Decimal Control)
+
+| Format | Description      | Example                    | Output |
+| ------ | ---------------- | -------------------------- | ------ |
+| `%.2f` | 2 decimal places | `sprintf("%.2f", 3.14159)` | 3.14   |
+| `%.3f` | 3 decimal places | `sprintf("%.3f", 3.14159)` | 3.142  |
+
+✔ Values are **rounded**, not truncated.
+
+---
+
+## 🔹 Scientific & Smart Format
+
+| Specifier | Description                | Example                  | Output       |
+| --------- | -------------------------- | ------------------------ | ------------ |
+| `%e`      | Scientific notation        | `sprintf("%e", 1230)`    | 1.230000e+03 |
+| `%.2e`    | Scientific (2 decimals)    | `sprintf("%.2e", 1230)`  | 1.23e+03     |
+| `%g`      | Auto format (`%f` or `%e`) | `sprintf("%g", 1234567)` | 1.23457e+06  |
+
+✔ `%g` uses **6 significant digits by default**
+
+---
+
+## 🔹 Special Character
+
+| Specifier | Description      | Example           | Output |
+| --------- | ---------------- | ----------------- | ------ |
+| `%%`      | Print `%` symbol | `sprintf("90%%")` | 90%    |
+
+---
+
+## 🔹 Width, Padding & Alignment
+
+| Format  | Description           | Example                  | Output         |
+| ------- | --------------------- | ------------------------ | -------------- |
+| `%5d`   | Width (right-aligned) | `sprintf("%5d", 42)`     | `"   42"`      |
+| `%05d`  | Zero padding          | `sprintf("%05d", 42)`    | `"00042"`      |
+| `%-10s` | Left align            | `sprintf("%-10s", "Hi")` | `"Hi        "` |
+| `%10s`  | Right align           | `sprintf("%10s", "Hi")`  | `"        Hi"` |
+
+---
+
+## 🔹 Mixed Example
+
+```r
+sprintf("Name: %-10s Score: %05.2f", "John", 9.5)
+```
+
+**Output:**
+
+```
+Name: John       Score: 09.50
+```
+
+---
+
+## 🔹 Format Structure
+
+```
+%[flags][width][.precision][type]
+```
+
+Example:
+
+```
+%05.2f
+│ │ │ └── type (float)
+│ │ └──── precision (2 decimal places)
+│ └────── width (5 characters)
+└──────── flag (0 = zero padding)
+```
+
+---
+
+## 🧪 Practice Examples
+
+```r
+sprintf("%.2f", 5.6789)     # 5.68
+sprintf("%i", 7.99)         # 7
+sprintf("%05d", 23)         # 00023
+sprintf("%s", "Hello")      # Hello
+sprintf("%g", 1234567)      # 1.23457e+06
+```
+
+---
+
+## 🚀 Summary
+
+* `%s` → string
+* `%d` / `%i` → integer
+* `%f` → float
+* `%.nf` → precision
+* `%e` → scientific notation
+* `%g` → smart format
+* `%%` → literal `%`
+
+---
+
+## ⭐ Contribute
+
+Feel free to improve this cheat sheet or add more examples!
+
+---
