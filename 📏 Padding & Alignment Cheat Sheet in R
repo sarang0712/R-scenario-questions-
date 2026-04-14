@@ -1,0 +1,173 @@
+# 📏 Padding & Alignment Cheat Sheet in R (`sprintf()`)
+
+A quick guide to controlling **width, spacing, padding, and alignment** using `sprintf()` in R.
+
+---
+
+## 🔹 What is Padding & Alignment?
+
+Padding and alignment help you **format output neatly** by:
+
+* adding spaces or zeros
+* aligning text left or right
+* fixing column widths
+
+---
+
+## 🔹 Width (Right Alignment by Default)
+
+```r
+sprintf("%5d", 42)
+```
+
+**Output:**
+
+```
+"   42"
+```
+
+✔ Total width = 5 characters
+✔ Spaces added on the **left**
+
+---
+
+## 🔹 Zero Padding
+
+```r
+sprintf("%05d", 42)
+```
+
+**Output:**
+
+```
+"00042"
+```
+
+✔ Pads with **zeros instead of spaces**
+
+---
+
+## 🔹 Left Alignment
+
+```r
+sprintf("%-10s", "Hi")
+```
+
+**Output:**
+
+```
+"Hi        "
+```
+
+✔ Text aligned to the **left**
+✔ Spaces added on the **right**
+
+---
+
+## 🔹 Right Alignment
+
+```r
+sprintf("%10s", "Hi")
+```
+
+**Output:**
+
+```
+"        Hi"
+```
+
+✔ Text aligned to the **right**
+
+---
+
+## 🔹 Width + Precision (Numbers)
+
+```r
+sprintf("%8.2f", 3.14)
+```
+
+**Output:**
+
+```
+"    3.14"
+```
+
+✔ Width = 8
+✔ 2 decimal places
+✔ Right aligned with spaces
+
+---
+
+## 🔹 Zero Padding + Precision
+
+```r
+sprintf("%08.2f", 3.14)
+```
+
+**Output:**
+
+```
+"00003.14"
+```
+
+✔ Width = 8
+✔ Zeros added to the left
+
+---
+
+## 🔹 Multiple Values (Table Style)
+
+```r
+sprintf("%-10s %5d", "John", 25)
+sprintf("%-10s %5d", "Alice", 30)
+```
+
+**Output:**
+
+```
+John          25
+Alice         30
+```
+
+✔ Useful for **table formatting**
+
+---
+
+## 🔹 Format Structure
+
+```
+%[flags][width][.precision][type]
+```
+
+Example:
+
+```
+%-10s
+│ │  └── type (string)
+│ └──── width (10)
+└────── flag (- = left align)
+```
+
+---
+
+## 🔹 Quick Reference Table
+
+| Format   | Meaning              | Example Output |
+| -------- | -------------------- | -------------- |
+| `%5d`    | Right align, width 5 | `"   42"`      |
+| `%05d`   | Zero padding         | `"00042"`      |
+| `%-10s`  | Left align           | `"Hi        "` |
+| `%10s`   | Right align          | `"        Hi"` |
+| `%8.2f`  | Width + precision    | `"    3.14"`   |
+| `%08.2f` | Zero pad + precision | `"00003.14"`   |
+
+---
+
+## 🚀 Tips
+
+* Default alignment is **right**
+* Use `-` for **left alignment**
+* Use `0` for **zero padding**
+* Combine width + precision for clean numeric formatting
+
+---
