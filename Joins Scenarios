@@ -1,0 +1,464 @@
+# DPLYR JOINS PRACTICE – 100 SCENARIOS
+
+## 📦 MASTER DATASET (R)
+
+```r
+library(dplyr)
+library(tibble)
+
+customers <- tribble(
+  ~CustomerID, ~Name, ~City,
+  1, "Alice", "Bangalore",
+  2, "Bob", "Mumbai",
+  3, "Charlie", "Delhi",
+  4, "Diana", "Chennai",
+  5, "Evan", "Hyderabad"
+)
+
+orders <- tribble(
+  ~OrderID, ~CustomerID, ~Amount,
+  101, 1, 500,
+  102, 2, 700,
+  103, 1, 300,
+  104, 4, 900
+)
+
+products <- tribble(
+  ~ProductID, ~ProductName,
+  1, "Laptop",
+  2, "Phone",
+  3, "Tablet",
+  4, "Headphones"
+)
+
+order_items <- tribble(
+  ~OrderID, ~ProductID,
+  101, 1,
+  101, 2,
+  102, 2,
+  103, 3,
+  104, 4
+)
+
+employees <- tribble(
+  ~EmpID, ~Name, ~ManagerID,
+  1, "John", NA,
+  2, "Emma", 1,
+  3, "Raj", 1,
+  4, "Sara", 2
+)
+```
+
+---
+
+# 🟢 SIMPLE (1–25)
+
+1. Get customers who placed orders
+2. Show all customers with orders
+3. Show all orders with customer names
+4. Find customers with no orders
+5. Customers with at least one order
+6. Show all orders even without customers
+7. Combine customers and orders fully
+8. List all products in orders
+9. Show orders with product names
+10. Find products never ordered
+11. Products ordered at least once
+12. Customers and their order amounts
+13. Orders with no products
+14. Customers with NULL values after join
+15. Count rows after inner join
+16. Count rows after left join
+17. Show unmatched rows from customers
+18. Show unmatched rows from orders
+19. Filter joined data for a city
+20. Join and sort by amount
+21. Join and select specific columns
+22. Join and rename columns
+23. Join using different column names
+24. Join and filter NULLs
+25. Basic full join exploration
+
+---
+
+# 🟡 INTERMEDIATE (26–60)
+
+26. Customers and products they bought
+27. Orders with multiple products
+28. Customers with more than 1 order
+29. Total orders per customer
+30. Total spend per customer
+31. Average order value per customer
+32. Highest order per customer
+33. Lowest order per customer
+34. Count products per order
+35. Orders with more than 1 product
+36. Products bought by each customer
+37. Customers who bought Laptop
+38. Customers who bought Phone
+39. Customers who bought both Laptop & Phone
+40. Customers who bought only one product
+41. Customers who never bought Tablet
+42. Products bought by Bangalore customers
+43. Orders placed by Delhi customers
+44. Customers with no product purchases
+45. Products never linked to any order
+46. Orders missing product mapping
+47. Customers with NULL product joins
+48. Join and group by city
+49. Join and calculate totals per city
+50. Join and filter top spenders
+51. Join and get bottom spenders
+52. Join and rank customers
+53. Join and filter duplicate rows
+54. Detect duplicate joins
+55. Join and distinct values
+56. Semi join customers with orders
+57. Anti join customers without orders
+58. Semi join products used
+59. Anti join unused products
+60. Combine 3-table joins
+
+---
+
+# 🔵 ADVANCED (61–85)
+
+61. Full order details (customer + product)
+62. Multi-level joins with aggregation
+63. Customers who bought same product twice
+64. Customers with repeated purchases
+65. Orders with highest number of products
+66. Products with highest demand
+67. Customers who bought all products
+68. Customers who bought none
+69. Find gaps in joins
+70. Missing relationships detection
+71. Compare inner vs left results
+72. Compare left vs anti results
+73. Customers appearing in multiple joins
+74. Join and filter inconsistent data
+75. Join and detect orphan records
+76. Orders with no valid customer
+77. Products mapped incorrectly
+78. Validate foreign key relationships
+79. Join and calculate percentages
+80. Join and cumulative sums
+81. Join and rolling totals
+82. Join and lag/lead analysis
+83. Join and window functions
+84. Nested joins (join inside join)
+85. Complex filtering after joins
+
+---
+
+# 🔴 HARD (86–100)
+
+86. Self join employees with managers
+87. Employees with manager names
+88. Employees without managers
+89. Managers with multiple employees
+90. Employees reporting to same manager
+91. Find hierarchy levels
+92. Chain self joins (multi-level hierarchy)
+93. Find top-level manager
+94. Detect circular references
+95. Customers who bought same product (pairing)
+96. Customer-product cross matching
+97. Find co-purchased products
+98. Customers with identical purchase patterns
+99. Advanced anti join with conditions
+100. Build full relational report (all tables combined)
+
+---
+
+# 🎯 GOAL
+
+For each scenario:
+
+* Identify relationship (1-M, M-M)
+* Choose correct join
+* Handle NULLs carefully
+* Add aggregation if needed
+
+---
+
+# 🚀 BONUS
+
+Try solving each using:
+
+* inner_join
+* left_join
+* right_join
+* full_join
+* semi_join
+* anti_join
+* self_join
+
+---
+
+
+=============================
+E-COMMERCE JOIN SCENARIOS
+=============================
+
+1. Find orders where customer details are missing after joining customers table.
+
+2. Find order items where product information is missing after joining products table.
+
+3. Identify customers who have not placed any orders.
+
+4. Find orders that do not have any matching order items.
+
+5. Detect orders with invalid customer_id (not present in customers table).
+
+6. Detect order_items with invalid product_id (not present in products table).
+
+7. Find customers who exist in customers table but never appear in orders.
+
+8. Find products that were never sold in any order.
+
+9. Identify orders with missing customer city information after join.
+
+10. Find order_items where quantity is missing or NA after join.
+
+---------------------------------
+AGGREGATION + JOIN SCENARIOS
+---------------------------------
+
+11. Calculate total spending per customer and attach it to each order.
+
+12. Calculate total quantity sold per product and join back to product table.
+
+13. Compute average order value per city and attach to each order.
+
+14. Compute number of orders per customer and join with customer table.
+
+15. Compute total revenue per product category and join with products.
+
+16. Find top spending customers and attach ranking to each order.
+
+17. Compute average quantity per order and attach to master dataset.
+
+18. Find total orders per city and join with customers/orders.
+
+---------------------------------
+MASTER DATASET SCENARIOS
+---------------------------------
+
+19. Create a master dataset by joining:
+    orders + customers + order_items + products
+
+20. In master dataset, identify rows where customer, product, or order info is missing.
+
+21. Create enriched dataset with:
+    - customer details
+    - product details
+    - order details
+    - aggregated totals
+
+22. Detect data quality issues in master dataset:
+    - missing joins
+    - duplicate orders
+    - invalid IDs
+
+23. Find complete vs incomplete orders in master dataset.
+
+---------------------------------
+ADVANCED JOIN SCENARIOS
+---------------------------------
+
+24. Find orders where multiple products are purchased (multi-item orders).
+
+25. Find customers who bought products from more than one category.
+
+26. Find products that are only purchased once.
+
+27. Identify customers whose total spending is above average.
+
+28. Find mismatch between order total_amount and sum of order_items.
+
+29. Detect orphan records in all tables.
+
+30. Build final analytical dataset for reporting (fully joined + aggregated).
+
+
+✈️ SCENARIOS
+1. Missing plane information
+
+Find all flights where plane details are missing after joining with the planes dataset.
+
+2. Missing airline details
+
+Identify flights where the carrier exists in flights but has no matching airline name.
+
+3. Missing airport information
+
+Find flights where the origin airport details are missing after joining with the airports dataset.
+
+4. Flights without weather data
+
+Identify flights where no weather information is available for the origin.
+
+5. Average delay per origin (aggregation + join)
+
+Create a summary of average departure delay per origin, then attach it to each flight.
+
+6. Average air time per carrier
+
+Compute average air time per airline, then join it back to flights.
+
+7. Total number of flights per origin
+
+Aggregate flight counts per origin airport and attach to each row.
+
+8. Flights with missing delay information
+
+Find flights where departure or arrival delay is missing, even after joins.
+
+9. Old aircraft usage
+
+Join planes and find flights where plane manufacture year is missing or very old.
+
+10. Weather impact scenario
+
+Aggregate average wind speed per origin, then join to flights to analyze conditions.
+
+11. Flights with unmatched tail numbers
+
+Identify flights where tail number does not exist in planes dataset.
+
+12. Carrier performance comparison
+
+Aggregate average delay per carrier, then attach it to each flight.
+
+13. Airport congestion scenario
+
+Calculate total flights per destination airport, then join back.
+
+14. Flights missing multiple data sources
+
+Find flights missing any of: plane info, airline info, or weather data.
+
+15. Monthly flight trends
+
+Aggregate monthly flight counts, then join with flights dataset.
+
+16. Long-distance flights summary
+
+Compute average distance per carrier, then merge back.
+
+17. Flights with inconsistent data
+
+Find rows where joined values contradict (e.g., missing but should exist).
+
+18. Master dataset creation (big one 🔥)
+
+Create a master dataset by joining:
+
+flights
+airlines
+planes
+airports
+weather summary
+19. Enriched master dataset with aggregations
+
+Add:
+
+average delay per origin
+average temperature per origin
+total flights per carrier
+
+to the master dataset.
+
+20. Data quality audit scenario
+
+From master dataset, identify:
+
+missing joins
+duplicate keys
+inconsistent values
+
+=============================
+E-COMMERCE DATASET (R + MASTER)
+=============================
+
+-----------------------------
+1. CUSTOMERS TABLE (R code)
+-----------------------------
+library(tibble)
+
+customers <- tribble(
+  ~customer_id, ~name,     ~city,
+  1,           "Asha",    "Bangalore",
+  2,           "Ravi",    "Mysore",
+  3,           "Neha",    "Mumbai",
+  4,           "Kiran",   "Pune"
+)
+
+-----------------------------
+2. PRODUCTS TABLE (R code)
+-----------------------------
+products <- tribble(
+  ~product_id, ~product_name, ~category,   ~price,
+  101,        "Laptop",      "Electronics", 60000,
+  102,        "Phone",       "Electronics", 20000,
+  103,        "Shoes",       "Fashion",     3000,
+  104,        "Watch",       "Fashion",     5000
+)
+
+-----------------------------
+3. ORDERS TABLE (R code)
+-----------------------------
+orders <- tribble(
+  ~order_id, ~customer_id, ~order_date,   ~total_amount,
+  1001,      1,            "2026-01-10",  65000,
+  1002,      2,            "2026-01-11",  20000,
+  1003,      3,            "2026-01-12",  8000,
+  1004,      5,            "2026-01-13",  3000   # invalid customer_id
+)
+
+-----------------------------
+4. ORDER ITEMS TABLE (R code)
+-----------------------------
+order_items <- tribble(
+  ~order_id, ~product_id, ~quantity,
+  1001,      101,        1,
+  1001,      104,        1,
+  1002,      102,        1,
+  1003,      103,        2,
+  1005,      103,        1   # missing order scenario
+)
+
+-----------------------------
+5. MASTER DATASET (JOIN LOGIC)
+-----------------------------
+master_data <- orders |>
+  left_join(customers, by = "customer_id") |>
+  left_join(order_items, by = "order_id") |>
+  left_join(products, by = "product_id")
+
+-----------------------------
+6. FINAL FLAT TABLE (CSV FORMAT)
+-----------------------------
+order_id,customer_id,name,city,order_date,total_amount,product_id,product_name,category,price,quantity
+1001,1,Asha,Bangalore,2026-01-10,65000,101,Laptop,Electronics,60000,1
+1001,1,Asha,Bangalore,2026-01-10,65000,104,Watch,Fashion,5000,1
+1002,2,Ravi,Mysore,2026-01-11,20000,102,Phone,Electronics,20000,1
+1003,3,Neha,Mumbai,2026-01-12,8000,103,Shoes,Fashion,3000,2
+1004,5,,NA,2026-01-13,3000,,,NA,NA,
+1005,,,NA,NA,,103,Shoes,Fashion,3000,1
+
+-----------------------------
+7. SAVE FILE IN R
+-----------------------------
+txt_data <- "
+order_id,customer_id,name,city,order_date,total_amount,product_id,product_name,category,price,quantity
+1001,1,Asha,Bangalore,2026-01-10,65000,101,Laptop,Electronics,60000,1
+1001,1,Asha,Bangalore,2026-01-10,65000,104,Watch,Fashion,5000,1
+1002,2,Ravi,Mysore,2026-01-11,20000,102,Phone,Electronics,20000,1
+1003,3,Neha,Mumbai,2026-01-12,8000,103,Shoes,Fashion,3000,2
+1004,5,,NA,2026-01-13,3000,,,NA,NA,
+1005,,,NA,NA,,103,Shoes,Fashion,3000,1
+"
+
+writeLines(txt_data, "master_data.txt")
