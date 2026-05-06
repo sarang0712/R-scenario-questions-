@@ -1,0 +1,141 @@
+🧠 Scenario 1: Temperature Cleaning & Labeling
+
+You have a dataset weather with a column temp_c.
+
+Tasks:
+
+Replace missing temperatures with the average temperature.
+Create a category:
+"cold" if < 10
+"moderate" if 10–25
+"hot" if > 25
+Keep only the used columns.
+🧠 Scenario 2: Salary Adjustment
+
+Dataset: employees with column salary.
+
+Tasks:
+
+Write a function to increase salary:
+If salary < 3000 → +20%
+Otherwise → +10%
+Create a category:
+"low" < 3000
+"mid" 3000–7000
+"high" > 7000
+Use mutate() to apply both.
+🧠 Scenario 3: Exam Score Processing
+
+Dataset: students with column score.
+
+Tasks:
+
+Replace NA scores with 0.
+Create grade categories:
+"Fail" < 50
+"Pass" 50–75
+"Distinction" > 75
+🧠 Scenario 4: E-commerce Orders
+
+Dataset: orders with delivery_days.
+
+Tasks:
+
+Replace NA with median delivery time.
+Categorize:
+"fast" ≤ 2
+"normal" 3–5
+"slow" > 5
+🧠 Scenario 5: Gym Workout Duration
+
+Dataset: workouts with duration (minutes).
+
+Tasks:
+
+Replace NA with 30.
+Categorize:
+"short" < 20
+"medium" 20–45
+"long" > 45
+🔥 Bonus Challenge (Harder)
+
+Dataset: transactions with amount.
+
+Tasks:
+
+Replace NA with 0.
+Apply discount logic:
+
+100 → 10% discount
+
+≤ 100 → 5% discount
+Categorize final amount:
+"small" < 50
+"medium" 50–150
+"large" > 150
+
+🧠 Scenario 2 Dataset — employees
+library(tidyverse)
+
+set.seed(123)
+
+employees <- tibble(
+  id = 1:85,
+  name = paste0("Emp", 1:85),
+  department = sample(c("HR", "IT", "Finance", "Sales"), 85, replace = TRUE),
+  salary = sample(2000:10000, 85, replace = TRUE),
+  age = sample(21:60, 85, replace = TRUE),
+  experience = sample(0:35, 85, replace = TRUE),
+  city = sample(c("Singapore", "KL", "Bangkok", "Jakarta"), 85, replace = TRUE),
+  performance_score = sample(1:100, 85, replace = TRUE),
+  bonus_eligible = sample(c("Yes", "No"), 85, replace = TRUE),
+  hire_year = sample(2000:2024, 85, replace = TRUE)
+)
+
+🧠 Scenario 3 Dataset — students
+set.seed(456)
+
+students <- tibble(
+  id = 1:85,
+  name = paste0("Student", 1:85),
+  course = sample(c("Math", "Science", "Arts", "Business"), 85, replace = TRUE),
+  score = sample(c(NA, 0:100), 85, replace = TRUE),
+  age = sample(18:30, 85, replace = TRUE),
+  gender = sample(c("M", "F"), 85, replace = TRUE),
+  attendance = sample(50:100, 85, replace = TRUE),
+  study_hours = sample(1:10, 85, replace = TRUE),
+  assignment_score = sample(0:100, 85, replace = TRUE),
+  country = sample(c("SG", "MY", "TH", "ID"), 85, replace = TRUE)
+)
+
+🧠 Scenario 4 Dataset — orders
+set.seed(789)
+
+orders <- tibble(
+  order_id = 1:85,
+  customer = paste0("C", 1:85),
+  product_category = sample(c("Electronics", "Fashion", "Grocery", "Home"), 85, replace = TRUE),
+  delivery_days = sample(c(NA, 1:10), 85, replace = TRUE),
+  order_value = sample(10:500, 85, replace = TRUE),
+  quantity = sample(1:5, 85, replace = TRUE),
+  payment_method = sample(c("Card", "Cash", "E-wallet"), 85, replace = TRUE),
+  city = sample(c("Singapore", "Penang", "Hanoi", "Manila"), 85, replace = TRUE),
+  discount_applied = sample(c(0, 5, 10, 15), 85, replace = TRUE),
+  order_year = sample(2020:2026, 85, replace = TRUE)
+)
+
+🧠 Scenario 5 Dataset — workouts
+set.seed(101)
+
+workouts <- tibble(
+  workout_id = 1:85,
+  user = paste0("U", 1:85),
+  workout_type = sample(c("Cardio", "Strength", "Yoga", "HIIT"), 85, replace = TRUE),
+  duration = sample(c(NA, 10:90), 85, replace = TRUE),
+  calories_burned = sample(50:800, 85, replace = TRUE),
+  heart_rate = sample(60:180, 85, replace = TRUE),
+  intensity = sample(c("Low", "Medium", "High"), 85, replace = TRUE),
+  day = sample(1:7, 85, replace = TRUE),
+  trainer = sample(c("A", "B", "C"), 85, replace = TRUE),
+  location = sample(c("Gym", "Home", "Park"), 85, replace = TRUE)
+)
